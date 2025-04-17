@@ -10,11 +10,11 @@ use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
-    //
-    public function create() {
+    // Функция которая создаёт поле для ввода информации о постах в поле администраци(панели)
+    public function create() { 
         return view('admin.post.create');
     }
-
+    // Создание правил на проверку информации при вводе(В начале требуется список полей и требования к ним)(Сообщения об ошибках валидации)
     public function store(Request $request){
           Validator::make(
             $request->all(),
@@ -63,7 +63,7 @@ class PostController extends Controller
 
         )->validate(); 
 
-
+        // Отправка на сервер
         $insert = DB::table('project_news')->insert([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
@@ -77,7 +77,7 @@ class PostController extends Controller
             return redirect()->back()->with('success', 'Данные успешно добавлены');
         }
     }
-
+    // Открытие формы с данными
     public function index() {
         $posts = DB::table('project_news')->get();    
 
