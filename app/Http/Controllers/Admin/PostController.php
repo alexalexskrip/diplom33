@@ -8,13 +8,17 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
+use App\Models\Post;
+use App\Models\ProjectNews;
+
+
 class PostController extends Controller
 {
-    // Функция которая создаёт поле для ввода информации о постах в поле администраци(панели)
-    public function create() { 
+    //
+    public function create() {
         return view('admin.post.create');
     }
-    // Создание правил на проверку информации при вводе(В начале требуется список полей и требования к ним)(Сообщения об ошибках валидации)
+
     public function store(Request $request){
           Validator::make(
             $request->all(),
@@ -63,7 +67,7 @@ class PostController extends Controller
 
         )->validate(); 
 
-        // Отправка на сервер
+
         $insert = DB::table('project_news')->insert([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
@@ -77,12 +81,45 @@ class PostController extends Controller
             return redirect()->back()->with('success', 'Данные успешно добавлены');
         }
     }
-    // Открытие формы с данными
+
     public function index() {
         $posts = DB::table('project_news')->get();    
 
         return view('admin.post.index', compact('posts'));
     }
 
+/*добавила */
+    public function destroy(Request $request, ProjectNews $post)
+    {
+        //dd($request, $post);
+        
+        $post->delete();
 
+        return redirect()
+            ->route('posts.index')
+            ->with('success', 'Пост удален');
+
+    }
+
+
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+        return view('posts.edit', compact('post'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        $post = Post::findOrFail($id);
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+        $post->save();
+
+        return redirect()->route('posts.index')->with('success', 'Post updated successfully');
+    }
 }

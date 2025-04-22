@@ -45,12 +45,11 @@
                 </div>
             </div>
             <div class="col-sm-12 col-lg-6 offset-sm-0 offset-lg-3">
-                @if ($errors->any()) 
+                @if ($errors->any())
                 <div class="alert alert-danger" role="alert">
                     @foreach ($errors->all() as $error)
                         <p>{{ $error }}</p>
                     @endforeach
-                    //В случае возникновения ошибки появляется сообщение
                 </div>
                 @endif
                 <form action="{{route('post.store')}}" method="POST">

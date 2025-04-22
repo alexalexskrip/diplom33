@@ -38,7 +38,7 @@
             <p class="my-text-muted">Всего инициатив: 22804</p>
 
             <div class="d-flex justify-content-between mb-5">
-                <h1>Инициативы на голосвании</h1>
+                <h1>Инициативы на голосовании</h1>
                 <div class="d-flex justify-content-between align-items-center">
                     <a class="slide_btn" href="#"><i class="fa-solid fa-caret-left"></i></a>
                     <a class="slide_btn" href="#"><i class="fa-solid fa-caret-right"></i></a>
@@ -56,21 +56,27 @@
                             <td>Действие</td>
                         </tr>
                     </thead>
-                    <tbody>
-                        @php $num = 1 @endphp
-                  
+                    <tbody>                  
                         @foreach($posts as $post)
                             <tr>
-                                <td>{{$num}}</td>
+                                <td>{{$loop->iteration}}</td>
                                 <td>{{$post->name}}</td>
                                 <td>{{$post->date}}</td>
                                 <td>{{$post->description}}</td>
                                 <td>{{$post->text}}</td>
                                 <td>
-                                    <a href="">Удалить</a> <a href="">Редактировать</a>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <form action="{{ route('post.destroy', $post->id) }}" method="POST">
+                                            @csrf
+                                            @method("DELETE")
+                                            <button type="submit" onclick="return confirm('Вы уверены?')" class="btn btn-link p-0 m-0">
+                                                Удалить
+                                            </button>
+                                        </form>
+                                        <a href="">Редактировать</a>
+                                    </div>
                                 </td>
-                            </tr>
-                            @php $num++ @endphp   
+                            </tr> 
                         @endforeach
                     </tbody>
 
