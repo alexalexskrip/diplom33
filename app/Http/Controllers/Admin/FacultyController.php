@@ -21,7 +21,7 @@ class FacultyController extends Controller
      */
     public function index()
     {
-        $faculties = Faculty::with('university')->orderByDesc('created_at')->paginate(10);
+        $faculties = Faculty::with('university')->latest()->paginate(10);
         return view('admin.faculties.index', compact('faculties'));
     }
 

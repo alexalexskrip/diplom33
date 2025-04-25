@@ -21,7 +21,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::with('faculty')->orderByDesc('created_at')->paginate(10);
+        $courses = Course::with('faculty')->latest()->paginate(10);
         return view('admin.courses.index', compact('courses'));
     }
 
