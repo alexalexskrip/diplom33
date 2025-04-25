@@ -9,8 +9,6 @@ class ProjectNews extends Model {
 
     use HasFactory;
 
-    protected $table = 'project_news';
-
     protected $primaryKey = 'id';
 
     protected $flllable = ['date', 'name', 'slug', 'description', 'text'];
