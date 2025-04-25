@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CabinetController;
+use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\FacultyController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\UniversityController;
@@ -26,6 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('universities', UniversityController::class);
     Route::resource('faculties', FacultyController::class);
+    Route::resource('courses', CourseController::class);
 });
 
 Route::middleware('auth')->group(function () {

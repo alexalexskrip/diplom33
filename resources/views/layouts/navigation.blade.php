@@ -36,7 +36,9 @@
                             <x-dropdown-link :href="route('faculties.index')">
                                 Факультеты
                             </x-dropdown-link>
-                            <x-dropdown-link href="#">Курсы</x-dropdown-link>
+                            <x-dropdown-link :href="route('courses.index')">
+                                Курсы
+                            </x-dropdown-link>
                             <x-dropdown-link href="#">Группы</x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
