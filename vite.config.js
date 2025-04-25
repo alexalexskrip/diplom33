@@ -22,5 +22,5 @@ export default defineConfig({
         },
         host: 'diplom.loc',
         port: 5173,
-    }
+    },
 });

@@ -5,7 +5,7 @@
             <div class="row align-items-center">
                 <div class="col-2">
                     <div class="logo">
-                        <img src="{{ asset('public/images/imgpsh_fullsize_anim.png') }}" alt="">
+                        <img src="{{ asset('images/imgpsh_fullsize_anim.png') }}" alt="">
                     </div>
                 </div>
                 <div class="col-10">
@@ -63,7 +63,7 @@
                             <a href="#">29 голосов</a>
                         </div>
                         <div class="">
-                            <img src="{{ asset('public//images/post_1.jpeg') }}" alt="">
+                            <img src="{{ asset('/images/post_1.jpeg') }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                             <a href="#">29 голосов</a>
                         </div>
                         <div class="">
-                            <img src="{{ asset('public/images/post_2.jpeg') }}" alt="">
+                            <img src="{{ asset('images/post_2.jpeg') }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                             <a href="#">29 голосов</a>
                         </div>
                         <div class="">
-                            <img src="{{ asset('public/images/post_3.jpeg') }}" alt="">
+                            <img src="{{ asset('images/post_3.jpeg') }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -198,7 +198,7 @@
                             <a href="#">29 голосов</a>
                         </div>
                         <div class="">
-                            <img src="{{ asset('public/images/post_1.jpeg') }}" alt="">
+                            <img src="{{ asset('images/post_1.jpeg') }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -220,7 +220,7 @@
                             <a href="#">29 голосов</a>
                         </div>
                         <div class="">
-                            <img src="{{ asset('public/images/post_2.jpeg') }}" alt="">
+                            <img src="{{ asset('images/post_2.jpeg') }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -242,7 +242,7 @@
                             <a href="#">29 голосов</a>
                         </div>
                         <div class="">
-                            <img src="{{ asset('public/images/post_2.jpeg') }}" alt="">
+                            <img src="{{ asset('images/post_2.jpeg') }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -312,4 +312,3 @@
 @include('includes.footer')
 
 
-   

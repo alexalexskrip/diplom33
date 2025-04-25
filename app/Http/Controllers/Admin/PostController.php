@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -24,7 +24,7 @@ class PostController extends Controller
             $request->all(),
             // Валидационные правила
             [
-              
+
                 'name' => [
                     'required', 'min:1', 'max:50'
                 ],
@@ -46,26 +46,26 @@ class PostController extends Controller
                 'name.required' => 'Укажите название статьи',
                 'name.min' => 'Поле "Название" должно содержать не менее 1 символа',
                 'name.max' => 'Поле "Название" должно содержать не более 50-ти символов',
-                
-             
+
+
                 'slug.unique' => 'Поле "Название" должно ,быть уникальным',
 
                 'date.required' => 'Поле "Дата создания статьи" обязательно для заполнения',
                 'date.date' => 'В поле "Дата создания статьи" указан неверный формат',
-                
+
 
                 'description.required' => 'Укажите описание статьи',
                 'description.min' => 'Поле "Описание статьи" должно содержать не менее 1 символа',
                 'description.max' => 'Поле "Описание статьи" должно содержать не более 50-ти символов',
-             
+
                 'text.required' => 'Введите текст статьи',
                 'text.min' => 'Поле "Текст статьи" должно содержать не менее 1 символа',
                 'text.max' => 'Поле "текст статьи" должно содержать не более 50-ти символов',
 
-               
+
             ]
 
-        )->validate(); 
+        )->validate();
 
 
         $insert = DB::table('project_news')->insert([
@@ -83,7 +83,7 @@ class PostController extends Controller
     }
 
     public function index() {
-        $posts = DB::table('project_news')->get();    
+        $posts = DB::table('project_news')->get();
 
         return view('admin.post.index', compact('posts'));
     }
@@ -92,7 +92,7 @@ class PostController extends Controller
     public function destroy(Request $request, ProjectNews $post)
     {
         //dd($request, $post);
-        
+
         $post->delete();
 
         return redirect()
