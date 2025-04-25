@@ -39,7 +39,9 @@
                             <x-dropdown-link :href="route('courses.index')">
                                 Курсы
                             </x-dropdown-link>
-                            <x-dropdown-link href="#">Группы</x-dropdown-link>
+                            <x-dropdown-link :href="route('groups.index')">
+                                Группы
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                 </div>
