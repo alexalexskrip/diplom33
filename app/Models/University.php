@@ -15,4 +15,9 @@ class University extends Model
         'phone_university',
         'mail_university'
     ];
+
+    public function faculties()
+    {
+        return $this->hasMany(Faculty::class, 'id_university');
+    }
 }
