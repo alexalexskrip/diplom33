@@ -5,11 +5,16 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Course;
 use App\Models\Faculty;
+use Illuminate\Support\Facades\DB;
 
 class CourseSeeder extends Seeder
 {
     public function run(): void
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        DB::table('courses')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
         // Курсы по 5 штук на каждый факультет
         $coursesPerFaculty = [
             'Информационные технологии' => [
