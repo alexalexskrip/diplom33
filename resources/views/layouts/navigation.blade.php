@@ -48,6 +48,9 @@
                             <x-dropdown-link :href="route('sourcelists.index')">
                                 Источники
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('statuslists.index')">
+                                Статусы
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                 </div>
