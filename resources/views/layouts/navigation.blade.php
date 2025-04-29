@@ -42,6 +42,9 @@
                             <x-dropdown-link :href="route('groups.index')">
                                 Группы
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('networklists.index')">
+                                Соцсети
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                 </div>

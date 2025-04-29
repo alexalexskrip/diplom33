@@ -4,8 +4,10 @@ use App\Http\Controllers\Admin\CabinetController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\FacultyController;
 use App\Http\Controllers\Admin\GroupController;
+use App\Http\Controllers\Admin\NetworklistController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\UniversityController;
+use App\Models\Networklist;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('faculties', FacultyController::class);
     Route::resource('courses', CourseController::class);
     Route::resource('groups', GroupController::class);
+    Route::resource('networklists', NetworklistController::class);
 });
 
 Route::middleware('auth')->group(function () {
