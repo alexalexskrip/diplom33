@@ -45,6 +45,9 @@
                             <x-dropdown-link :href="route('networklists.index')">
                                 Соцсети
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('sourcelists.index')">
+                                Источники
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                 </div>
