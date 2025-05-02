@@ -53,6 +53,10 @@
                             </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
+
+                    <x-nav-link :href="route('projects.index')" :active="request()->routeIs('projects.*')">
+                        Проекты
+                    </x-nav-link>
                 </div>
             </div>
 
