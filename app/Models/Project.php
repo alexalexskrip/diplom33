@@ -18,6 +18,15 @@ class Project extends Model
         'discription_project',
     ];
 
+    protected static function booted(): void
+    {
+        static::deleting(function ($project) {
+            foreach ($project->medias as $media) {
+                $media->delete(); // вызовет хук deleting() в ProjectMedia и удалит файл
+            }
+        });
+    }
+
     public function status(): BelongsTo
     {
         return $this->belongsTo(StatusList::class, 'id_status');
@@ -25,7 +34,7 @@ class Project extends Model
 
     public function medias(): HasMany
     {
-        return $this->hasMany(ProjectMedia::class);
+        return $this->hasMany(ProjectMedia::class, 'Id_project');
     }
 
     public function news(): HasMany
