@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Controllers\Admin\CabinetController;
-use App\Http\Controllers\Admin\CourseController;
-use App\Http\Controllers\Admin\FacultyController;
-use App\Http\Controllers\Admin\GroupController;
-use App\Http\Controllers\Admin\NetworklistController;
-use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\Admin\ProjectController;
-use App\Http\Controllers\Admin\SourceListController;
-use App\Http\Controllers\Admin\StatusListController;
-use App\Http\Controllers\Admin\UniversityController;
+use App\Http\Controllers\Cabinet\CabinetController;
+use App\Http\Controllers\Cabinet\CourseController;
+use App\Http\Controllers\Cabinet\FacultyController;
+use App\Http\Controllers\Cabinet\GroupController;
+use App\Http\Controllers\Cabinet\NetworklistController;
+use App\Http\Controllers\Cabinet\ProfileController;
+use App\Http\Controllers\Cabinet\ProjectController;
+use App\Http\Controllers\Cabinet\SourceListController;
+use App\Http\Controllers\Cabinet\StatusListController;
+use App\Http\Controllers\Cabinet\UniversityController;
 use App\Models\Networklist;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +29,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::prefix('admin')->group(function () {
+    Route::prefix('cabinet')->name('cabinet.')->group(function () {
         Route::get('/dashboard', [CabinetController::class, 'index'])->name('dashboard');
 
         Route::resource('universities', UniversityController::class);
@@ -46,11 +46,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
 });
-
-//Route::middleware('auth')->group(function () {
-//    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-//});
 
 require __DIR__.'/auth.php';

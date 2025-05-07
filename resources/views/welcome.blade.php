@@ -24,7 +24,7 @@
                             <div class="text-center"><i class="fa-solid fa-phone"></i> 8 (800) 550 03 63</div>
                         </div>
                         <div class="col-2 text-end">
-                            <a class="main_btn" href="{{ route('dashboard') }}">Вход</a>
+                            <a class="main_btn" href="{{ route('cabinet.dashboard') }}">Вход</a>
                         </div>
                     </div>
                 </div>

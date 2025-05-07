@@ -5,14 +5,14 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('cabinet.dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex sm:items-center">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('cabinet.dashboard')" :active="request()->routeIs('cabinet.dashboard')">
                         {{ __('Обзор') }}
                     </x-nav-link>
 
@@ -30,31 +30,31 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('universities.index')">
+                            <x-dropdown-link :href="route('cabinet.universities.index')" :active="request()->routeIs('cabinet.universities.index')">
                                 Университеты
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('faculties.index')">
+                            <x-dropdown-link :href="route('cabinet.faculties.index')" :active="request()->routeIs('cabinet.faculties.index')">
                                 Факультеты
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('courses.index')">
+                            <x-dropdown-link :href="route('cabinet.courses.index')" :active="request()->routeIs('cabinet.courses.index')">
                                 Курсы
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('groups.index')">
+                            <x-dropdown-link :href="route('cabinet.groups.index')" :active="request()->routeIs('cabinet.groups.index')">
                                 Группы
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('networklists.index')">
+                            <x-dropdown-link :href="route('cabinet.networklists.index')" :active="request()->routeIs('cabinet.networklists.index')">
                                 Соцсети
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('sourcelists.index')">
+                            <x-dropdown-link :href="route('cabinet.sourcelists.index')" :active="request()->routeIs('cabinet.sourcelists.index')">
                                 Источники
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('statuslists.index')">
+                            <x-dropdown-link :href="route('cabinet.statuslists.index')" :active="request()->routeIs('cabinet.statuslists.index')">
                                 Статусы
                             </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
 
-                    <x-nav-link :href="route('projects.index')" :active="request()->routeIs('projects.*')">
+                    <x-nav-link :href="route('cabinet.projects.index')" :active="request()->routeIs('cabinet.projects.*')">
                         Проекты
                     </x-nav-link>
                 </div>
@@ -76,7 +76,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('cabinet.profile.edit')">
                             {{ __('Профиль') }}
                         </x-dropdown-link>
 
@@ -109,7 +109,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="route('cabinet.dashboard')" :active="request()->routeIs('cabinet.dashboard')">
                 {{ __('Обзор') }}
             </x-responsive-nav-link>
         </div>
@@ -122,7 +122,7 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
+                <x-responsive-nav-link :href="route('cabinet.profile.edit')">
                     {{ __('Профиль') }}
                 </x-responsive-nav-link>
 
