@@ -20,7 +20,7 @@ class ProjectFactory extends Factory
         return [
             'id_status' => StatusList::query()->inRandomOrder()->value('id') ?? StatusList::factory(),
             'name_project' => $this->faker->sentence(3),
-            'discription_project' => $this->faker->paragraph(),
+            'discription_project' => $this->faker->text(255),
         ];
     }
 }
