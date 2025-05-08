@@ -21,6 +21,7 @@
                                 <th class="py-3 px-4 text-left">Название</th>
                                 <th class="py-3 px-4 text-left">Статус</th>
                                 <th class="py-3 px-4 text-left">Описание</th>
+                                <th class="py-3 px-4 text-left">Изображение</th>
                                 <th class="py-3 px-4 text-left">Действия</th>
                             </tr>
                         </thead>
@@ -30,7 +31,16 @@
                                     <td class="py-3 px-4">{{ $project->name_project }}</td>
                                     <td class="py-3 px-4">{{ $project->status->namesource_net ?? '—' }}</td>
                                     <td class="py-3 px-4">{{ Str::limit($project->discription_project, 100) }}</td>
-                                    <td class="py-3 px-4 flex space-x-2">
+                                    <td class="py-3 px-4">
+                                        @php $firstMedia = $project->medias->first(); @endphp
+
+                                        @if($firstMedia)
+                                            <img src="{{ asset('storage/projectmedia/' . $firstMedia->File_ProjectMedia) }}" alt="" class="w-16 h-16 object-cover rounded">
+                                        @else
+                                            —
+                                        @endif
+                                    </td>
+                                    <td class="py-3 px-4 flex space-x-2 align-content-center align-middle">
                                         <a href="{{ route('cabinet.projects.show', $project->id) }}" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Смотреть</a>
                                         <a href="{{ route('cabinet.projects.edit', $project->id) }}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Изменить</a>
                                         <form action="{{ route('cabinet.projects.destroy', $project->id) }}" method="POST">
@@ -41,7 +51,7 @@
                                     </td>
                                 </tr>
                             @empty
-                                <tr><td colspan="4" class="text-center py-3 text-gray-500">Проекты не найдены</td></tr>
+                                <tr><td colspan="5" class="text-center py-3 text-gray-500">Проекты не найдены</td></tr>
                             @endforelse
                         </tbody>
                     </table>

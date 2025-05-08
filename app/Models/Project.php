@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Storage;
 
 class Project extends Model
 {
@@ -22,7 +23,7 @@ class Project extends Model
     {
         static::deleting(function ($project) {
             foreach ($project->medias as $media) {
-                $media->delete(); // вызовет хук deleting() в ProjectMedia и удалит файл
+                $media->delete();
             }
         });
     }

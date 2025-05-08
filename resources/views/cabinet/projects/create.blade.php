@@ -1,43 +1,44 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Добавить проект</h2>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Создание проекта</h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <form action="{{ route('cabinet.projects.store') }}" method="POST">
-                        @csrf
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
+                <form method="POST" action="{{ route('cabinet.projects.store') }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-4">
+                        <label for="name_project" class="block text-gray-700">Название</label>
+                        <input type="text" id="name_project" name="name_project" class="mt-1 block w-full" value="{{ old('name_project') }}">
+                        @error('name_project')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
+                    </div>
 
-                        <div class="mb-6">
-                            <label for="name_project" class="block text-sm font-medium text-gray-700">Название</label>
-                            <input type="text" name="name_project" id="name_project" value="{{ old('name_project') }}" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                            @error('name_project') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                        </div>
+                    <div class="mb-4">
+                        <label for="discription_project" class="block text-gray-700">Описание</label>
+                        <textarea id="discription_project" name="discription_project" class="mt-1 block w-full">{{ old('discription_project') }}</textarea>
+                        @error('discription_project')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
+                    </div>
 
-                        <div class="mb-6">
-                            <label for="id_status" class="block text-sm font-medium text-gray-700">Статус</label>
-                            <select name="id_status" id="id_status" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                                @foreach($statuses as $status)
-                                    <option value="{{ $status->id }}" {{ old('id_status') == $status->id ? 'selected' : '' }}>{{ $status->namesource_net }}</option>
-                                @endforeach
-                            </select>
-                            @error('id_status') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                        </div>
+                    <div class="mb-4">
+                        <label for="id_status" class="block text-gray-700">Статус</label>
+                        <select id="id_status" name="id_status" class="mt-1 block w-full">
+                            <option value="">-- Выбери статус --</option>
+                            @foreach ($statuses as $status)
+                                <option value="{{ $status->id }}" @selected(old('id_status') == $status->id)>{{ $status->namesource_net }}</option>
+                            @endforeach
+                        </select>
+                        @error('id_status')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
+                    </div>
 
-                        <div class="mb-6">
-                            <label for="discription_project" class="block text-sm font-medium text-gray-700">Описание</label>
-                            <textarea name="discription_project" id="discription_project" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{ old('discription_project') }}</textarea>
-                            @error('discription_project') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                        </div>
+                    <div class="mb-4">
+                        <label for="media_files" class="block text-gray-700">Изображения</label>
+                        <input type="file" id="media_files" name="media_files[]" multiple>
+                        @error('media_files.*')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
+                    </div>
 
-                        <div class="flex space-x-4">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Сохранить</button>
-                            <a href="{{ route('cabinet.projects.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Отмена</a>
-                        </div>
-                    </form>
-                </div>
+                    <x-primary-button>Создать</x-primary-button>
+                </form>
             </div>
         </div>
     </div>

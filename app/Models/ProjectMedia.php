@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectMedia extends Model
 {
@@ -15,6 +16,13 @@ class ProjectMedia extends Model
         'NumFile_ProjectMedia',
         'File_ProjectMedia',
     ];
+
+    protected static function booted(): void
+    {
+        static::deleting(function ($media) {
+            Storage::disk('public')->delete("projectmedia/{$media->File_ProjectMedia}");
+        });
+    }
 
     public function project(): BelongsTo
     {
