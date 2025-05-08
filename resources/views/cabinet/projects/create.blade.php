@@ -23,7 +23,7 @@
                     <div class="mb-4">
                         <label for="id_status" class="block text-gray-700">Статус</label>
                         <select id="id_status" name="id_status" class="mt-1 block w-full">
-                            <option value="">-- Выбери статус --</option>
+                            <option value="">-- Выберите статус --</option>
                             @foreach ($statuses as $status)
                                 <option value="{{ $status->id }}" @selected(old('id_status') == $status->id)>{{ $status->namesource_net }}</option>
                             @endforeach
