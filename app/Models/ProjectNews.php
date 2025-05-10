@@ -4,18 +4,28 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProjectNews extends Model {
 
     use HasFactory;
 
-    protected $primaryKey = 'id';
+    protected $table = 'projectnews';
 
-    protected $flllable = ['date', 'name', 'slug', 'description', 'text'];
+    protected $fillable = [
+        'id_project',
+        'date_projectnews',
+        'name_projectnews',
+        'discription_projectnews'
+    ];
 
     protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime'
+        'date_projectnews' => 'date'
     ];
+
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class, 'id_project');
+    }
 
 }

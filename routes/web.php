@@ -8,6 +8,7 @@ use App\Http\Controllers\Cabinet\NetworklistController;
 use App\Http\Controllers\Cabinet\ProfileController;
 use App\Http\Controllers\Cabinet\ProjectController;
 use App\Http\Controllers\Cabinet\ProjectMediaController;
+use App\Http\Controllers\Cabinet\ProjectNewsController;
 use App\Http\Controllers\Cabinet\SourceListController;
 use App\Http\Controllers\Cabinet\StatusListController;
 use App\Http\Controllers\Cabinet\UniversityController;
@@ -42,6 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('statuslists', StatusListController::class);
         Route::resource('projects', ProjectController::class);
         Route::resource('project-media', ProjectMediaController::class);
+        Route::resource('projectnews', ProjectNewsController::class);
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
