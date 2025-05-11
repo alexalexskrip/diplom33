@@ -7,10 +7,25 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <h1 class="text-2xl font-bold mb-6">{{ $project->name_project }}</h1>
+                    <h1 class="text-2xl font-medium mb-6">{{ $project->name_project }}</h1>
 
-                    <p class="mb-2"><strong>Статус:</strong> {{ $project->status->namesource_net ?? '—' }}</p>
-                    <p class="mb-4"><strong>Описание:</strong><br>{{ $project->discription_project }}</p>
+                    <p class="mb-2"><span class="font-medium">Статус:</span> {{ $project->status->namesource_net ?? '—' }}</p>
+                    <p class="mb-4"><span class="font-medium">Описание:</span><br>{{ $project->discription_project }}</p>
+
+                    <div class="mb-4">
+                        <span class="font-medium">Использованные источники:</span>
+                        @if($project->sourceLists->isEmpty())
+                            <p class="text-gray-500">Нет источников</p>
+                        @else
+                            <ul class="list-disc list-inside space-y-1 mt-3">
+                                @foreach ($project->sourceLists as $source)
+                                    <li class="flex items-center justify-between px-4 py-2 @if($loop->odd) bg-gray-100 @endif">
+                                        <span>{{ $source->name_sourcelist }}</span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
 
                     @if($project->medias->count())
                         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -39,7 +54,7 @@
                         <p class="text-gray-500">Изображения не загружены.</p>
                     @endif
 
-                    <div class="mt-6">
+                    <div class="mt-10">
                         <a href="{{ route('cabinet.projects.index') }}" class="text-blue-500 hover:underline">← Назад к списку</a>
                     </div>
                 </div>

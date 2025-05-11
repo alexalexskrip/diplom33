@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cabinet;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\SourceList;
 use App\Models\StatusList;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -21,7 +22,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::with(['status', 'medias'])->latest()->paginate(10);
+        $projects = Project::with(['status', 'medias', 'sourceLists'])->latest()->paginate(10);
         return view('cabinet.projects.index', compact('projects'));
     }
 
@@ -38,9 +39,27 @@ class ProjectController extends Controller
             'discription_project' => 'required|string',
             'id_status' => 'required|exists:status_lists,id',
             'media_files.*' => 'nullable|image|max:5120',
+            'source_lists' => 'array',
+            'source_lists.*' => 'exists:source_lists,id',
+            'new_sources' => 'array',
+            'new_sources.*' => 'string|max:255',
         ]);
 
-        $project = Project::query()->create($validated);
+        $sourceIds = $validated['source_lists'] ?? [];
+
+        // Добавляем новые источники
+        if (!empty($validated['new_sources'])) {
+            foreach ($validated['new_sources'] as $name) {
+                $new = SourceList::create(['name_sourcelist' => $name]);
+                $sourceIds[] = $new->id;
+            }
+        }
+
+        // Убираем не относящиеся к проекту поля
+        unset($validated['source_lists'], $validated['new_sources']);
+
+        $project = Project::create($validated);
+        $project->sourceLists()->sync($sourceIds);
 
         if ($request->hasFile('media_files')) {
             $this->handleMediaUpload($request, $project);
@@ -57,7 +76,8 @@ class ProjectController extends Controller
     public function create()
     {
         $statuses = StatusList::all();
-        return view('cabinet.projects.create', compact('statuses'));
+        $sourceLists = SourceList::all();
+        return view('cabinet.projects.create', compact('statuses', 'sourceLists'));
     }
 
     /**
@@ -90,7 +110,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        $project->load('medias', 'status');
+        $project->load('medias', 'status', 'sourceLists');
         return view('cabinet.projects.show', compact('project'));
     }
 
@@ -103,7 +123,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $statuses = StatusList::all();
-        return view('cabinet.projects.edit', compact('project', 'statuses'));
+        $sourceLists = SourceList::all();
+        return view('cabinet.projects.edit', compact('project', 'statuses', 'sourceLists'));
     }
 
     /**
@@ -120,9 +141,20 @@ class ProjectController extends Controller
             'discription_project' => 'required|string',
             'id_status' => 'required|exists:status_lists,id',
             'media_files.*' => 'nullable|image|max:5120',
+            'source_lists' => 'array',
+            'source_lists.*' => 'exists:source_lists,id',
+            'new_source' => 'nullable|string|max:255',
         ]);
 
+//        dd($validated);
+
+        if (!empty($validated['new_source'])) {
+            $newSource = SourceList::query()->create(['name_sourcelist' => $validated['new_source']]);
+            $validated['source_lists'][] = $newSource->id;
+        }
+
         $project->update($validated);
+        $project->sourceLists()->sync($validated['source_lists'] ?? []);
 
         if ($request->hasFile('media_files')) {
             $this->handleMediaUpload($request, $project);
@@ -139,6 +171,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        $project->sourceLists()->detach();
         $project->delete();
         return redirect()->route('cabinet.projects.index')->with('success', 'Проект удалён.');
     }

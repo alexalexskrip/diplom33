@@ -7,11 +7,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <h1 class="text-2xl font-bold mb-6">Список проектов</h1>
+                    <h1 class="text-2xl font-medium mb-6">Список проектов</h1>
 
                     <x-flash-message />
 
-                    <a href="{{ route('cabinet.projects.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 inline-block">
+                    <a href="{{ route('cabinet.projects.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded mb-4 inline-block">
                         Добавить проект
                     </a>
 

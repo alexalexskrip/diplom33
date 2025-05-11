@@ -33,6 +33,11 @@ class Project extends Model
         return $this->belongsTo(StatusList::class, 'id_status');
     }
 
+    public function sourceLists(): BelongsToMany
+    {
+        return $this->belongsToMany(SourceList::class, 'project_source_lists', 'id_project', 'id_sourcelist')->withTimestamps();
+    }
+
     public function medias(): HasMany
     {
         return $this->hasMany(ProjectMedia::class, 'Id_project');
