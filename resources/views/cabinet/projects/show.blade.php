@@ -11,6 +11,11 @@
 
                     <p class="mb-2"><span class="font-medium">Статус:</span> {{ $project->status->namesource_net ?? '—' }}</p>
                     <p class="mb-4"><span class="font-medium">Описание:</span><br>{{ $project->discription_project }}</p>
+                    <p class="mb-4"><span class="font-medium">Студенты:</span></p>
+
+                    @foreach($project->users as $user)
+                        <p class="mb-4">{{ $user->firstname }} {{ $user->patronymic }} {{ $user->lastname }}</p>
+                    @endforeach
 
                     <div class="mb-4">
                         <span class="font-medium">Использованные источники:</span>

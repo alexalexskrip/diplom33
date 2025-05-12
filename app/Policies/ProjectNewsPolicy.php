@@ -12,7 +12,7 @@ class ProjectNewsPolicy
 
     public function view(User $user, ProjectNews $news): bool
     {
-        return $news->project->users->contains($user);
+        return $user->hasRole('admin') || $news->project->users->contains($user);
     }
 
     public function create(User $user): bool
@@ -22,11 +22,11 @@ class ProjectNewsPolicy
 
     public function update(User $user, ProjectNews $news): bool
     {
-        return $news->project->users->contains($user);
+        return $user->hasRole('admin') || $news->project->users->contains($user);
     }
 
     public function delete(User $user, ProjectNews $news): bool
     {
-        return $news->project->users->contains($user);
+        return $user->hasRole('admin') || $news->project->users->contains($user);
     }
 }

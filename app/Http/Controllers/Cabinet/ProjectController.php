@@ -23,7 +23,14 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Auth::user()->projects()->with(['status', 'medias', 'sourceLists'])->latest()->paginate(10);
+        $user = auth()->user();
+
+        if ($user->hasRole('admin')) {
+            $projects = Project::with(['status', 'medias', 'sourceLists'])->paginate(10);
+        } else {
+            $projects = $user->projects()->with(['status', 'medias', 'sourceLists'])->paginate(10);
+        }
+
         return view('cabinet.projects.index', compact('projects'));
     }
 
@@ -118,7 +125,7 @@ class ProjectController extends Controller
     {
         $this->authorize('view', $project);
 
-        $project->load('medias', 'status', 'sourceLists');
+        $project->load('medias', 'status', 'sourceLists', 'users');
         return view('cabinet.projects.show', compact('project'));
     }
 

@@ -10,35 +10,23 @@ class ProjectPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view the project.
-     */
     public function view(User $user, Project $project): bool
     {
-        return $project->users->contains($user);
+        return $user->hasRole('admin') || $project->users->contains($user);
     }
 
-    /**
-     * Determine whether the user can create a project.
-     */
     public function create(User $user): bool
     {
         return $user->hasRole('student');
     }
 
-    /**
-     * Determine whether the user can update the project.
-     */
     public function update(User $user, Project $project): bool
     {
-        return $project->users->contains($user);
+        return $user->hasRole('admin') || $project->users->contains($user);
     }
 
-    /**
-     * Determine whether the user can delete the project.
-     */
     public function delete(User $user, Project $project): bool
     {
-        return $project->users->contains($user);
+        return $user->hasRole('admin') || $project->users->contains($user);
     }
 }

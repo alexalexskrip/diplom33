@@ -9,11 +9,13 @@
                 <div class="p-6 text-gray-900">
                     <h1 class="text-2xl font-bold mb-6">Список новостей</h1>
 
-                    <x-flash-message />
+                    <x-flash-message/>
 
-                    <a href="{{ route('cabinet.projectnews.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 inline-block">
-                        Добавить новость
-                    </a>
+                    @can('create', App\Models\ProjectNews::class)
+                        <a href="{{ route('cabinet.projectnews.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 inline-block">
+                            Добавить новость
+                        </a>
+                    @endcan
 
                     <table class="min-w-full bg-white border border-gray-200 rounded-lg overflow-hidden">
                         <thead class="bg-gray-800 text-white">
@@ -33,17 +35,23 @@
                                     <td class="py-3 px-4">
                                         <div class="flex items-center space-x-2">
                                             <a href="{{ route('cabinet.projectnews.show', $news->id) }}" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Смотреть</a>
-                                            <a href="{{ route('cabinet.projectnews.edit', $news->id) }}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Изменить</a>
-                                            <form action="{{ route('cabinet.projectnews.destroy', $news->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" onclick="return confirm('Удалить новость?')" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Удалить</button>
-                                            </form>
+                                            @can('update', $news)
+                                                <a href="{{ route('cabinet.projectnews.edit', $news->id) }}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Изменить</a>
+                                            @endcan
+                                            @can('delete', $news)
+                                                <form action="{{ route('cabinet.projectnews.destroy', $news->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" onclick="return confirm('Удалить новость?')" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Удалить</button>
+                                                </form>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>
                             @empty
-                                <tr><td colspan="4" class="text-center py-3 text-gray-500">Новости не найдены</td></tr>
+                                <tr>
+                                    <td colspan="4" class="text-center py-3 text-gray-500">Новости не найдены</td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>
