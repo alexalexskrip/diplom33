@@ -54,7 +54,8 @@
                         <p class="text-gray-500">Изображения не загружены.</p>
                     @endif
 
-                    <div class="mt-10">
+                    <div class="mt-10 flex items-center space-x-4">
+                        <x-primary-button type="button" href="{{ route('cabinet.projects.edit', $project->id) }}">Редактировать</x-primary-button>
                         <a href="{{ route('cabinet.projects.index') }}" class="text-blue-500 hover:underline">← Назад к списку</a>
                     </div>
                 </div>

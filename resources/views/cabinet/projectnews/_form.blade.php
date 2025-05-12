@@ -35,5 +35,9 @@
         @error('discription_projectnews')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
     </div>
 
-    <x-primary-button>{{ $method === 'POST' ? 'Создать' : 'Обновить' }}</x-primary-button>
+    <div class="flex space-x-4 items-center mt-10">
+        <x-primary-button>{{ $method === 'POST' ? 'Создать' : 'Обновить' }}</x-primary-button>
+        <a href="{{ route('cabinet.projectnews.index') }}" class="ml-4 text-blue-500 hover:underline">← Назад к списку</a>
+    </div>
+
 </form>

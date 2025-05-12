@@ -106,7 +106,7 @@
                         </div>
 
                         <div class="mt-10 flex items-center">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Обновить</button>
+                            <x-primary-button>Обновить</x-primary-button>
                             <a href="{{ route('cabinet.projects.index') }}" class="ml-4 text-blue-500 hover:underline">← Назад к списку</a>
                         </div>
                     </form>
@@ -135,7 +135,7 @@
                                             </div>
                                         </div>
 
-                                        <img src="{{ asset('storage/projectmedia/' . $media->File_ProjectMedia) }}" class="object-cover w-full h-48 rounded">
+                                        <img src="{{ asset('storage/projectmedia/' . $media->File_ProjectMedia) }}" class="object-cover w-full h-48 rounded" alt="">
                                     </div>
                                 @endforeach
                             </div>

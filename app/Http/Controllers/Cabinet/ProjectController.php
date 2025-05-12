@@ -10,6 +10,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Str;
 
@@ -22,7 +23,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::with(['status', 'medias', 'sourceLists'])->latest()->paginate(10);
+        $projects = Auth::user()->projects()->with(['status', 'medias', 'sourceLists'])->latest()->paginate(10);
         return view('cabinet.projects.index', compact('projects'));
     }
 
@@ -34,6 +35,8 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Project::class);
+
         $validated = $request->validate([
             'name_project' => 'required|string|max:255',
             'discription_project' => 'required|string',
@@ -59,6 +62,7 @@ class ProjectController extends Controller
         unset($validated['source_lists'], $validated['new_sources']);
 
         $project = Project::create($validated);
+        $project->users()->attach(Auth::id());
         $project->sourceLists()->sync($sourceIds);
 
         if ($request->hasFile('media_files')) {
@@ -75,6 +79,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Project::class);
+
         $statuses = StatusList::all();
         $sourceLists = SourceList::all();
         return view('cabinet.projects.create', compact('statuses', 'sourceLists'));
@@ -110,6 +116,8 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+        $this->authorize('view', $project);
+
         $project->load('medias', 'status', 'sourceLists');
         return view('cabinet.projects.show', compact('project'));
     }
@@ -122,6 +130,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        $this->authorize('update', $project);
+
         $statuses = StatusList::all();
         $sourceLists = SourceList::all();
         return view('cabinet.projects.edit', compact('project', 'statuses', 'sourceLists'));
@@ -136,6 +146,8 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
+        $this->authorize('update', $project);
+
         $validated = $request->validate([
             'name_project' => 'required|string|max:255',
             'discription_project' => 'required|string',
@@ -145,8 +157,6 @@ class ProjectController extends Controller
             'source_lists.*' => 'exists:source_lists,id',
             'new_source' => 'nullable|string|max:255',
         ]);
-
-//        dd($validated);
 
         if (!empty($validated['new_source'])) {
             $newSource = SourceList::query()->create(['name_sourcelist' => $validated['new_source']]);
@@ -171,7 +181,10 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        $this->authorize('delete', $project);
+
         $project->sourceLists()->detach();
+        $project->users()->detach();
         $project->delete();
         return redirect()->route('cabinet.projects.index')->with('success', 'Проект удалён.');
     }

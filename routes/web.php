@@ -33,7 +33,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('cabinet')->name('cabinet.')->group(function () {
-        Route::get('/dashboard', [CabinetController::class, 'index'])->name('dashboard');
+        Route::get('dashboard', [CabinetController::class, 'index'])->name('dashboard');
 
         Route::resource('universities', UniversityController::class);
         Route::resource('faculties', FacultyController::class);

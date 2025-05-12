@@ -53,8 +53,9 @@ class Project extends Model
         return $this->belongsToMany(SourceList::class, 'project_source_lists', 'project_id', 'source_list_id');
     }
 
-    public function students(): BelongsToMany
+    public function users(): BelongsToMany
     {
-        return $this->belongsToMany(Student::class, 'student_projects', 'project_id', 'student_id');
+        return $this->belongsToMany(User::class, 'student_projects', 'id_project', 'id_user');
     }
+
 }

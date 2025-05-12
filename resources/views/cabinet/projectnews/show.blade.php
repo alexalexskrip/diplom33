@@ -14,8 +14,8 @@
                     <p class="mb-4"><strong>Название:</strong> {{ $projectnews->name_projectnews }}</p>
                     <p class="mb-4"><strong>Описание:</strong> {{ $projectnews->discription_projectnews }}</p>
 
-                    <div class="mt-6">
-                        <a href="{{ route('cabinet.projectnews.edit', $projectnews->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Редактировать</a>
+                    <div class="mt-10">
+                        <x-primary-button href="{{ route('cabinet.projectnews.edit', $projectnews->id) }}">Редактировать</x-primary-button>
                         <a href="{{ route('cabinet.projectnews.index') }}" class="text-blue-500 hover:underline ml-4">← Назад к списку</a>
                     </div>
                 </div>
