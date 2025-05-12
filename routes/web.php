@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('cabinet')->name('cabinet.')->group(function () {
