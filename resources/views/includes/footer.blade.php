@@ -23,10 +23,10 @@
 {{--                    <div class="footer_link">8-800-200-61-62</div>--}}
 {{--                    <div>API РОИ</div>--}}
                 </div>
-                <div class="col-sm-12 col-lg-4 mb-3">
-                    <div class="footer_link">При поддержке</div>
-                    <div>Фонда информационной демократии</div>
-                </div>
+{{--                <div class="col-sm-12 col-lg-4 mb-3">--}}
+{{--                    <div class="footer_link">При поддержке</div>--}}
+{{--                    <div>Фонда информационной демократии</div>--}}
+{{--                </div>--}}
             </div>
         </div>
     </footer>
