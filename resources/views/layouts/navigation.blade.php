@@ -68,7 +68,7 @@
                 </div>
             </div>
 
-            <x-nav-link :href="route('home')" :active="request()->routeIs('home')" class="ml-auto" target="_blank">
+            <x-nav-link :href="route('frontend.home')" :active="request()->routeIs('frontend.home')" class="ml-auto" target="_blank">
                 На главную
             </x-nav-link>
 

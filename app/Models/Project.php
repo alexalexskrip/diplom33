@@ -45,7 +45,7 @@ class Project extends Model
 
     public function news(): HasMany
     {
-        return $this->hasMany(ProjectNews::class);
+        return $this->hasMany(ProjectNews::class, 'id_project');
     }
 
     public function sources(): BelongsToMany
@@ -56,6 +56,15 @@ class Project extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'student_projects', 'id_project', 'id_user');
+    }
+
+    public function getFirstImageUrl(): string
+    {
+        $firstMedia = $this->medias->first();
+
+        return $firstMedia && $firstMedia->File_ProjectMedia
+            ? asset('storage/projectmedia/' . $firstMedia->File_ProjectMedia)
+            : asset('images/no_photo.jpg');
     }
 
 }

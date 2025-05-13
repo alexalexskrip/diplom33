@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сайт студенческих иницатив</title>
+    <title>Сайт студенческих инициатив</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
 @if(session()->has('success'))
@@ -20,3 +20,37 @@
         <p>{{ session('wrong') }}</p>
     </div>
 @endif
+
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-2">
+                        <div class="logo">
+                            <img src="{{ asset('images/imgpsh_fullsize_anim.png') }}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="row align-items-center">
+                            <div class="col-7">
+                                <div class="menu">
+                                    <ul>
+                                        <li><a href="#">Как это работает?</a></li>
+                                        <li><a href="#">Обратная связь</a></li>
+                                        <li><a href="#">Вопрос-ответ</a></li>
+                                        {{--                                    <li><a href="{{ route('cabinet.dashboard') }}">Кабинет</a></li>--}}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="text-center"><i class="fa-solid fa-phone"></i> 8 (800) 550 03 63</div>
+                            </div>
+                            <div class="col-2 text-end">
+                                <a class="main_btn" href="{{ route('cabinet.dashboard') }}">Вход</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>

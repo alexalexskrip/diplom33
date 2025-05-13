@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Group::class, 'id_group');
     }
+
+    public function getFullnameAttribute(): string
+    {
+        return trim("{$this->firstname} {$this->lastname}");
+    }
 }

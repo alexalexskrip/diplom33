@@ -13,7 +13,8 @@ use App\Http\Controllers\Cabinet\ProjectSourceDetachController;
 use App\Http\Controllers\Cabinet\SourceListController;
 use App\Http\Controllers\Cabinet\StatusListController;
 use App\Http\Controllers\Cabinet\UniversityController;
-use App\Models\Networklist;
+use App\Http\Controllers\Frontend\ProjectController as FrontendProjectController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,9 +28,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+//Route::get('/welcome', function () {
+//    return view('welcome');
+//})->name('home');
+
+Route::name('frontend.')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+
+    Route::name('projects.')->group(function (){
+        Route::get('/projects/{project}', [FrontendProjectController::class, 'show'])->name('show');
+    });
+});
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('cabinet')->name('cabinet.')->group(function () {

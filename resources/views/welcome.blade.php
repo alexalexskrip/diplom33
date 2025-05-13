@@ -1,4 +1,25 @@
-@include('includes.header')
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Сайт студенческих инициатив</title>
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{{--        @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
+    </head>
+    <body>
+        @if(session()->has('success'))
+            <div class="alert alert-success" role="alert" style="position: absolute; top: 120px; right: 30px; z-index: 100; max-width: 420px">
+                <p>{{ session('success') }}</p>
+            </div>
+        @endif
+        @if(session()->has('wrong'))
+            <div class="alert alert-danger" role="alert" style="position: absolute; top: 120px; right: 30px; z-index: 100; max-width: 420px">
+                <p>{{ session('wrong') }}</p>
+            </div>
+        @endif
   <header>
     <div class="top-bar">
         <div class="container">
@@ -38,7 +59,7 @@
             <p class="my-text-muted">Всего инициатив: 22804</p>
 
             <div class="d-flex justify-content-between mb-5">
-                <h1>Инициативы на голосвании</h1>
+                <h1>Инициативы на голосовании</h1>
                 <div class="d-flex justify-content-between align-items-center">
                     <a class="slide_btn" href="#"><i class="fa-solid fa-caret-left"></i></a>
                     <a class="slide_btn" href="#"><i class="fa-solid fa-caret-right"></i></a>
@@ -309,6 +330,42 @@
             </div>
         </div>
     </section>
-@include('includes.footer')
+            <footer>
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-sm-12 col-lg-2 mb-3">
+                            <div class="logo"><img src="{{ asset('images/logo_footer.png') }}" alt=""></div>
+                        </div>
+                        <div class="col-sm-12 col-lg-5 mb-3">
+                            <div class="menu">
+                                <ul>
+                                    <li><a href="#">Памятка</a></li>
+                                    <li><a href="#">О проекте</a></li>
+                                    <li><a href="#">Нововсти</a></li>
+                                    <li><a href="#">Памятка</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-4 mb-3">
+                            <div><a class="footer_link" href="#">Пользовательское соглашение</a></div>
+                            {{--                    <div>По вопросам работы портала обращайтесь:</div>--}}
+                            {{--                    <div><a style="text-decoration: none; color:#000" href="mailto:info@roi.ru">info@roi.ru</a></div>--}}
+                            {{--                    <div class="footer_link">8-800-200-61-62</div>--}}
+                            {{--                    <div>API РОИ</div>--}}
+                        </div>
+                        <div class="col-sm-12 col-lg-4 mb-3">
+                            <div class="footer_link">При поддержке</div>
+                            <div>Фонда информационной демократии</div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
 
+
+            <script src="{{ asset('js/jquery.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.js') }}"></script>
+    </body>
+</html>
 
