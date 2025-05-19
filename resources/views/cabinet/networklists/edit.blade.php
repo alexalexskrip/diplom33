@@ -13,14 +13,14 @@
 
                         <div class="grid md:grid-cols-2 gap-x-4 gap-y-6">
                             <div>
-                                <label for="name_networkList" class="block text-sm font-medium text-gray-700">Название</label>
-                                <input type="text" name="name_networkList" id="name_networkList" value="{{ old('name_networkList', $networklist->name_networkList) }}" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                                @error('name_networkList') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                                <label for="name" class="block text-sm font-medium text-gray-700">Название</label>
+                                <input type="text" name="name" id="name" value="{{ old('name', $networklist->name) }}" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                                @error('name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                             </div>
                             <div>
-                                <label for="site_netWWorklist" class="block text-sm font-medium text-gray-700">Сайт</label>
-                                <input type="url" name="site_netWWorklist" id="site_netWWorklist" value="{{ old('site_netWWorklist', $networklist->site_netWWorklist) }}" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                                @error('site_netWWorklist') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                                <label for="site" class="block text-sm font-medium text-gray-700">Сайт</label>
+                                <input type="url" name="site" id="site" value="{{ old('site', $networklist->site) }}" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                                @error('site') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                             </div>
                         </div>
 

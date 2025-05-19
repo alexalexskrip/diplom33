@@ -83,7 +83,7 @@ class ProjectMediaController extends Controller
      */
     public function destroy(ProjectMedia $project_medium)
     {
-        Storage::disk('public')->delete('projectmedia/' . $project_medium->File_ProjectMedia);
+        Storage::disk('public')->delete('projectmedia/' . $project_medium->file_path);
 
         $project_medium->delete();
 

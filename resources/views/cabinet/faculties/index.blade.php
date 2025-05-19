@@ -28,8 +28,8 @@
                         <tbody class="divide-y divide-gray-200">
                             @forelse($faculties as $faculty)
                                 <tr class="hover:bg-gray-50">
-                                    <td class="py-3 px-4">{{ $faculty->name_faculty }}</td>
-                                    <td class="py-3 px-4 text-gray-400">{{ $faculty->university->name_university }}</td>
+                                    <td class="py-3 px-4">{{ $faculty->name }}</td>
+                                    <td class="py-3 px-4 text-gray-400">{{ $faculty->university->name }}</td>
                                     <td class="py-3 px-4 flex space-x-2 justify-center">
                                         <a href="{{ route('cabinet.faculties.edit', $faculty->id) }}" class="inline-flex items-center px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
                                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

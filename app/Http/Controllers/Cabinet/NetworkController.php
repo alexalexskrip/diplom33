@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Cabinet;
 
 use App\Http\Controllers\Controller;
-use App\Models\StatusList;
+use App\Models\Network;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
-class StatusListController extends Controller
+class NetworkController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +20,8 @@ class StatusListController extends Controller
      */
     public function index()
     {
-        $statuslists = StatusList::query()->orderBy('namesource_net')->paginate(20);
-        return view('cabinet.statuslists.index', compact('statuslists'));
+        $networklists = Network::query()->orderBy('name')->paginate(20);
+        return view('cabinet.networklists.index', compact('networklists'));
     }
 
     /**
@@ -31,7 +31,7 @@ class StatusListController extends Controller
      */
     public function create()
     {
-        return view('cabinet.statuslists.create');
+        return view('cabinet.networklists.create');
     }
 
     /**
@@ -43,21 +43,22 @@ class StatusListController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'namesource_net' => 'required|string|max:50',
+            'name' => 'required|string|max:50',
+            'site' => 'required|url|max:50',
         ]);
 
-        StatusList::query()->create($request->only('namesource_net'));
+        Network::create($request->only(['name', 'site']));
 
-        return redirect()->route('cabinet.statuslists.index')->with('success', 'Статус добавлен');
+        return redirect()->route('cabinet.networklists.index')->with('success', 'Сеть добавлена');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  StatusList  $statusList
+     * @param  Network  $networklist
      * @return Response
      */
-    public function show(StatusList $statuslist)
+    public function show(Network $networklist)
     {
         //
     }
@@ -65,41 +66,42 @@ class StatusListController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  StatusList  $statuslist
+     * @param  Network  $networklist
      * @return Application|Factory|\Illuminate\Contracts\View\View|View
      */
-    public function edit(StatusList $statuslist)
+    public function edit(Network $networklist)
     {
-        return view('cabinet.statuslists.edit', compact('statuslist'));
+        return view('cabinet.networklists.edit', compact('networklist'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  Request  $request
-     * @param  StatusList  $statuslist
+     * @param  Network  $networklist
      * @return RedirectResponse
      */
-    public function update(Request $request, StatusList $statuslist)
+    public function update(Request $request, Network $networklist)
     {
         $request->validate([
-            'namesource_net' => 'required|string|max:50',
+            'name' => 'required|string|max:50',
+            'site' => 'required|url|max:50',
         ]);
 
-        $statuslist->update($request->only('namesource_net'));
+        $networklist->update($request->only(['name', 'site']));
 
-        return redirect()->route('cabinet.statuslists.index')->with('success', 'Статус обновлён');
+        return redirect()->route('cabinet.networklists.index')->with('success', 'Сеть обновлена');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  StatusList  $statuslist
+     * @param  Network  $networklist
      * @return RedirectResponse
      */
-    public function destroy(StatusList $statuslist)
+    public function destroy(Network $networklist)
     {
-        $statuslist->delete();
-        return redirect()->route('cabinet.statuslists.index')->with('success', 'Статус удалён');
+        $networklist->delete();
+        return redirect()->route('cabinet.networklists.index')->with('success', 'Сеть удалена');
     }
 }

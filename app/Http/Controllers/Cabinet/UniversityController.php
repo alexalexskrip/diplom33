@@ -38,10 +38,10 @@ class UniversityController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name_university' => 'required|string|max:255',
-            'address_university' => 'required|string|max:255',
-            'phone_university' => 'required|string|max:20',
-            'mail_university' => 'required|email|max:255',
+            'name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'email' => 'required|email|max:255',
         ]);
 
         University::create($validated);
@@ -82,10 +82,10 @@ class UniversityController extends Controller
     public function update(Request $request, University $university)
     {
         $validated = $request->validate([
-            'name_university' => 'required|string|max:50',
-            'address_university' => 'required|string|max:255',
-            'phone_university' => 'required|string|max:20',
-            'mail_university' => 'required|email|max:50',
+            'name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'email' => 'required|email|max:255',
         ]);
 
         $university->update($validated);

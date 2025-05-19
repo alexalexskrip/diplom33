@@ -15,20 +15,20 @@
                         @csrf
                         <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                             <div>
-                                <label for="name_faculty" class="block text-sm font-semibold text-gray-900">Название</label>
-                                <input type="text" name="name_faculty" id="name_faculty" value="{{ old('name_faculty') }}" class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
-                                @error('name_faculty')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                                <label for="name" class="block text-sm font-semibold text-gray-900">Название</label>
+                                <input type="text" name="name" id="name" value="{{ old('name') }}" class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
+                                @error('name')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                             </div>
 
                             <div>
-                                <label for="id_university" class="block text-sm font-semibold text-gray-900">Университет</label>
-                                <select name="id_university" id="id_university" class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
+                                <label for="university_id" class="block text-sm font-semibold text-gray-900">Университет</label>
+                                <select name="university_id" id="university_id" class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
                                     <option value="">-- выберите университет --</option>
                                     @foreach($universities as $university)
-                                        <option value="{{ $university->id }}" @selected(old('id_university') == $university->id)>{{ $university->name_university }}</option>
+                                        <option value="{{ $university->id }}" @selected(old('university_id') == $university->id)>{{ $university->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('id_university')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                                @error('university_id')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                             </div>
                         </div>
 

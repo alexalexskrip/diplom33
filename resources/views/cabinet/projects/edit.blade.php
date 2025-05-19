@@ -12,40 +12,40 @@
                         @method('PUT')
 
                         <div class="mb-4">
-                            <label for="name_project" class="block text-gray-700 font-medium">Название <span class="text-red-500">*</span></label>
-                            <input type="text" id="name_project" name="name_project" class="mt-1 block w-full" value="{{ old('name_project', $project->name_project) }}" required>
-                            @error('name_project')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
+                            <label for="name" class="block text-gray-700 font-medium">Название <span class="text-red-500">*</span></label>
+                            <input type="text" id="name" name="name" class="mt-1 block w-full" value="{{ old('name', $project->name) }}" required>
+                            @error('name')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
                         </div>
 
                         <div class="mb-4">
-                            <label for="discription_project" class="block text-gray-700 font-medium">Описание <span class="text-red-500">*</span></label>
-                            <textarea id="discription_project" name="discription_project" class="mt-1 block w-full" required>{{ old('discription_project', $project->discription_project) }}</textarea>
-                            @error('discription_project')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
+                            <label for="description" class="block text-gray-700 font-medium">Описание <span class="text-red-500">*</span></label>
+                            <textarea id="description" name="description" class="mt-1 block w-full" required>{{ old('description', $project->description) }}</textarea>
+                            @error('description')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
                         </div>
 
                         <div class="mb-4">
-                            <label for="id_status" class="block text-gray-700 font-medium">Статус</label>
-                            <select name="id_status" id="id_status" class="mt-1 block w-full">
+                            <label for="status_id" class="block text-gray-700 font-medium">Статус</label>
+                            <select name="status_id" id="status_id" class="mt-1 block w-full">
                                 @foreach ($statuses as $status)
-                                    <option value="{{ $status->id }}" @selected(old('id_status', $project->id_status) == $status->id)>
-                                        {{ $status->namesource_net }}
+                                    <option value="{{ $status->id }}" @selected(old('status_id', $project->status_id) == $status->id)>
+                                        {{ $status->name }}
                                     </option>
                                 @endforeach
                             </select>
-                            @error('id_status')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
+                            @error('status_id')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
                         </div>
 
                         <div class="mb-4" x-data="{
-                            selected: @js(old('source_lists', $project->sourceLists->pluck('id'))),
+                            selected: @js(old('source_lists', $project->sources->pluck('id'))),
                             search: '',
-                            all: @js($sourceLists),
+                            all: @js($sources),
                             toggle(id) {
                                 const i = this.selected.indexOf(id);
                                 i === -1 ? this.selected.push(id) : this.selected.splice(i, 1);
                             },
                             filtered() {
                                 if (!this.search) return this.all;
-                                return this.all.filter(s => s.name_sourcelist.toLowerCase().includes(this.search.toLowerCase()));
+                                return this.all.filter(s => s.name.toLowerCase().includes(this.search.toLowerCase()));
                             },
                             newSource: '',
                             newSources: [],
@@ -70,7 +70,7 @@
                                                 @click="toggle(source.id)"
                                                 :class="selected.includes(source.id) ? 'bg-blue-100 text-blue-700' : 'bg-gray-100'"
                                                 class="px-3 py-1 rounded w-full text-left"
-                                                x-text="source.name_sourcelist">
+                                                x-text="source.name">
                                         </button>
                                     </div>
                                 </template>
@@ -111,11 +111,11 @@
                         </div>
                     </form>
 
-                    @if ($project->medias->count())
+                    @if ($project->media->count())
                         <div class="mt-10">
                             <label class="block text-gray-700 mb-2 font-medium">Изображения проекта</label>
                             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                @foreach ($project->medias as $media)
+                                @foreach ($project->media as $media)
                                     <div class="relative border rounded overflow-hidden" x-data="{ confirm: false }">
                                         <button
                                             type="button"
@@ -135,12 +135,12 @@
                                             </div>
                                         </div>
 
-                                        <img src="{{ asset('storage/projectmedia/' . $media->File_ProjectMedia) }}" class="object-cover w-full h-48 rounded" alt="">
+                                        <img src="{{ asset('storage/projectmedia/' . $media->file_path) }}" class="object-cover w-full h-48 rounded" alt="">
                                     </div>
                                 @endforeach
                             </div>
 
-                            @foreach ($project->medias as $media)
+                            @foreach ($project->media as $media)
                                 <form id="delete-media-{{ $media->id }}" action="{{ route('cabinet.project-media.destroy', $media) }}" method="POST" class="hidden">
                                     @csrf
                                     @method('DELETE')

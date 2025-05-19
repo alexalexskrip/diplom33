@@ -30,8 +30,8 @@ class GroupController extends Controller
     public function create()
     {
         $universities = University::all();
-        $faculties = Faculty::select('id', 'id_university', 'name_faculty')->get();
-        $courses = Course::select('id', 'id_faculty', 'name_course')->get();
+        $faculties = Faculty::select('id', 'university_id', 'name')->get();
+        $courses = Course::select('id', 'faculty_id', 'name')->get();
 
         return view('cabinet.groups.create', compact('universities', 'faculties', 'courses'));
     }
@@ -45,11 +45,11 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_course' => 'required|exists:courses,id',
-            'name_group' => 'required|string|max:255',
+            'course_id' => 'required|exists:courses,id',
+            'name' => 'required|string|max:255',
         ]);
 
-        Group::create($request->only(['id_course', 'name_group']));
+        Group::create($request->only(['course_id', 'name']));
 
         return redirect()->route('cabinet.groups.index')->with('success', 'Группа создана');
     }
@@ -74,8 +74,8 @@ class GroupController extends Controller
     public function edit(Group $group)
     {
         $universities = University::all();
-        $faculties = Faculty::select('id', 'id_university', 'name_faculty')->get();
-        $courses = Course::select('id', 'id_faculty', 'name_course')->get();
+        $faculties = Faculty::select('id', 'university_id', 'name')->get();
+        $courses = Course::select('id', 'faculty_id', 'name')->get();
 
         $group->load('course.faculty');
 
@@ -92,11 +92,11 @@ class GroupController extends Controller
     public function update(Request $request, Group $group)
     {
         $request->validate([
-            'id_course' => 'required|exists:courses,id',
-            'name_group' => 'required|string|max:255',
+            'course_id' => 'required|exists:courses,id',
+            'name' => 'required|string|max:255',
         ]);
 
-        $group->update($request->only(['id_course', 'name_group']));
+        $group->update($request->only(['course_id', 'name']));
 
         return redirect()->route('cabinet.groups.index')->with('success', 'Группа обновлена');
     }

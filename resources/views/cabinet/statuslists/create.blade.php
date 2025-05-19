@@ -11,9 +11,9 @@
                         @csrf
 
                         <div class="mb-6">
-                            <label for="namesource_net" class="block text-sm font-medium text-gray-700">Название</label>
-                            <input type="text" name="namesource_net" id="namesource_net" value="{{ old('namesource_net') }}" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                            @error('namesource_net') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                            <label for="name" class="block text-sm font-medium text-gray-700">Название</label>
+                            <input type="text" name="name" id="name" value="{{ old('name') }}" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            @error('name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                         </div>
 
                         <div class="flex space-x-4">

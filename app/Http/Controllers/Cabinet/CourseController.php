@@ -33,7 +33,7 @@ class CourseController extends Controller
     public function create()
     {
         $universities = University::all();
-        $faculties = Faculty::select('id', 'id_university', 'name_faculty')->get();
+        $faculties = Faculty::select('id', 'university_id', 'name')->get();
 
         return view('cabinet.courses.create', compact('universities', 'faculties'));
     }
@@ -47,11 +47,11 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_faculty' => 'required|exists:faculties,id',
-            'name_course' => 'required|string|max:255',
+            'faculty_id' => 'required|exists:faculties,id',
+            'name' => 'required|string|max:255',
         ]);
 
-        Course::create($request->only(['id_faculty', 'name_course']));
+        Course::create($request->only(['faculty_id', 'name']));
 
         return redirect()->route('cabinet.courses.index')->with('success', 'Курс создан');
     }
@@ -76,7 +76,7 @@ class CourseController extends Controller
     public function edit(Course $course)
     {
         $universities = University::all();
-        $faculties = Faculty::select('id', 'id_university', 'name_faculty')->get();
+        $faculties = Faculty::select('id', 'university_id', 'name')->get();
         $course->load('faculty');
         return view('cabinet.courses.edit', compact('course', 'universities', 'faculties'));
     }
@@ -91,11 +91,11 @@ class CourseController extends Controller
     public function update(Request $request, Course $course)
     {
         $request->validate([
-            'id_faculty' => 'required|exists:faculties,id',
-            'name_course' => 'required|string|max:255',
+            'faculty_id' => 'required|exists:faculties,id',
+            'name' => 'required|string|max:255',
         ]);
 
-        $course->update($request->only(['id_faculty', 'name_course']));
+        $course->update($request->only(['faculty_id', 'name']));
 
         return redirect()->route('cabinet.courses.index')->with('success', 'Курс обновлён');
     }

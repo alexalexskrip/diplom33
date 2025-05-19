@@ -4,13 +4,16 @@ use App\Http\Controllers\Cabinet\CabinetController;
 use App\Http\Controllers\Cabinet\CourseController;
 use App\Http\Controllers\Cabinet\FacultyController;
 use App\Http\Controllers\Cabinet\GroupController;
-use App\Http\Controllers\Cabinet\NetworklistController;
+use App\Http\Controllers\Cabinet\NetworkController;
+use App\Http\Controllers\Cabinet\NetworksController;
 use App\Http\Controllers\Cabinet\ProfileController;
 use App\Http\Controllers\Cabinet\ProjectController;
 use App\Http\Controllers\Cabinet\ProjectMediaController;
 use App\Http\Controllers\Cabinet\ProjectNewsController;
 use App\Http\Controllers\Cabinet\ProjectSourceDetachController;
+use App\Http\Controllers\Cabinet\SourceController;
 use App\Http\Controllers\Cabinet\SourceListController;
+use App\Http\Controllers\Cabinet\StatusController;
 use App\Http\Controllers\Cabinet\StatusListController;
 use App\Http\Controllers\Cabinet\UniversityController;
 use App\Http\Controllers\Frontend\ProjectController as FrontendProjectController;
@@ -35,7 +38,7 @@ use Illuminate\Support\Facades\Route;
 Route::name('frontend.')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
-    Route::name('projects.')->group(function (){
+    Route::name('projects.')->group(function () {
         Route::get('/projects/{project}', [FrontendProjectController::class, 'show'])->name('show');
     });
 });
@@ -48,9 +51,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('faculties', FacultyController::class);
         Route::resource('courses', CourseController::class);
         Route::resource('groups', GroupController::class);
-        Route::resource('networklists', NetworklistController::class);
-        Route::resource('sourcelists', SourceListController::class);
-        Route::resource('statuslists', StatusListController::class);
+        Route::resource('networklists', NetworkController::class);
+        Route::resource('sourcelists', SourceController::class);
+        Route::resource('statuslists', StatusController::class);
         Route::resource('projects', ProjectController::class);
 
         Route::delete('/projects/{project}/sources/{source}', [ProjectSourceDetachController::class, 'detach'])

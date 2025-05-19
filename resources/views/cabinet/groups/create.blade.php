@@ -18,55 +18,55 @@
                             faculties: @js($faculties),
                             courses: @js($courses),
                             get filteredFaculties() {
-                                return this.faculties.filter(f => f.id_university == this.university);
+                                return this.faculties.filter(f => f.university_id == this.university);
                             },
                             get filteredCourses() {
-                                return this.courses.filter(c => c.id_faculty == this.faculty);
+                                return this.courses.filter(c => c.faculty_id == this.faculty);
                             }
                         }">
 
                             <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                                 <!-- Университет -->
                                 <div>
-                                    <label for="id_university" class="block text-sm font-semibold text-gray-900">Университет</label>
-                                    <select id="id_university" x-model="university" class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
+                                    <label for="university_id" class="block text-sm font-semibold text-gray-900">Университет</label>
+                                    <select id="university_id" x-model="university" class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
                                         <option value="">-- выберите университет --</option>
                                         @foreach($universities as $university)
-                                            <option value="{{ $university->id }}">{{ $university->name_university }}</option>
+                                            <option value="{{ $university->id }}">{{ $university->name }}</option>
                                         @endforeach
                                     </select>
-                                    @error('id_university') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                                    @error('university_id') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                                 </div>
 
                                 <!-- Факультет -->
                                 <div>
-                                    <label for="id_faculty" class="block text-sm font-semibold text-gray-900">Факультет</label>
-                                    <select id="id_faculty" x-model="faculty" class="mt-2 block w-full rounded-md border-gray-300 shadow-sm" :disabled="!university">
+                                    <label for="faculty_id" class="block text-sm font-semibold text-gray-900">Факультет</label>
+                                    <select id="faculty_id" x-model="faculty" class="mt-2 block w-full rounded-md border-gray-300 shadow-sm" :disabled="!university">
                                         <option value="">-- выберите факультет --</option>
                                         <template x-for="f in filteredFaculties" :key="f.id">
-                                            <option :value="f.id" x-text="f.name_faculty"></option>
+                                            <option :value="f.id" x-text="f.name"></option>
                                         </template>
                                     </select>
-                                    @error('id_faculty') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                                    @error('faculty_id') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                                 </div>
 
                                 <!-- Курс -->
                                 <div>
-                                    <label for="id_course" class="block text-sm font-semibold text-gray-900">Курс</label>
-                                    <select name="id_course" id="id_course" class="mt-2 block w-full rounded-md border-gray-300 shadow-sm" :disabled="!faculty">
+                                    <label for="course_id" class="block text-sm font-semibold text-gray-900">Курс</label>
+                                    <select name="course_id" id="course_id" class="mt-2 block w-full rounded-md border-gray-300 shadow-sm" :disabled="!faculty">
                                         <option value="">-- выберите курс --</option>
                                         <template x-for="c in filteredCourses" :key="c.id">
-                                            <option :value="c.id" x-text="c.name_course"></option>
+                                            <option :value="c.id" x-text="c.name"></option>
                                         </template>
                                     </select>
-                                    @error('id_course') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                                    @error('course_id') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                                 </div>
 
                                 <!-- Название группы -->
                                 <div>
-                                    <label for="name_group" class="block text-sm font-semibold text-gray-900">Название группы</label>
-                                    <input type="text" name="name_group" id="name_group" value="{{ old('name_group') }}" class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
-                                    @error('name_group') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                                    <label for="name" class="block text-sm font-semibold text-gray-900">Название группы</label>
+                                    <input type="text" name="name" id="name" value="{{ old('name') }}" class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
+                                    @error('name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                                 </div>
                             </div>
 

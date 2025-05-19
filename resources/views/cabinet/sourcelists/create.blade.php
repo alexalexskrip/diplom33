@@ -11,9 +11,9 @@
                         @csrf
 
                         <div class="mb-6">
-                            <label for="name_sourcelist" class="block text-sm font-medium text-gray-700">Название</label>
-                            <input type="text" name="name_sourcelist" id="name_sourcelist" value="{{ old('name_sourcelist') }}" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                            @error('name_sourcelist') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                            <label for="name" class="block text-sm font-medium text-gray-700">Название</label>
+                            <input type="text" name="name" id="name" value="{{ old('name') }}" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            @error('name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                         </div>
 
                         <div class="flex space-x-4">

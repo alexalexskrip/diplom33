@@ -14,10 +14,10 @@
                         @method('PUT')
 
                         <div x-data="{
-                            university: '{{ old('id_university', $course->faculty->id_university) }}',
+                            university: '{{ old('university_id', $course->faculty->university_id) }}',
                             faculties: @js($faculties),
                             get filteredFaculties() {
-                                return this.faculties.filter(f => f.id_university == this.university);
+                                return this.faculties.filter(f => f.university_id == this.university);
                             }
                         }">
 
@@ -25,37 +25,37 @@
                                 <!-- Университет -->
                                 <div>
                                     <label for="university" class="block text-sm font-semibold text-gray-900">Университет</label>
-                                    <select name="id_university" id="university" x-model="university"
+                                    <select name="university_id" id="university" x-model="university"
                                             class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
                                         <option value="">-- выберите университет --</option>
                                         @foreach($universities as $university)
-                                            <option value="{{ $university->id }}" @selected(old('id_university', $course->faculty->id_university) == $university->id)>
-                                                {{ $university->name_university }}
+                                            <option value="{{ $university->id }}" @selected(old('university_id', $course->faculty->university_id) == $university->id)>
+                                                {{ $university->name }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('id_university')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                                    @error('university_id')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                                 </div>
 
                                 <!-- Факультет -->
                                 <div>
                                     <label for="faculty" class="block text-sm font-semibold text-gray-900">Факультет</label>
-                                    <select name="id_faculty" id="faculty"
+                                    <select name="faculty_id" id="faculty"
                                             class="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
                                             :disabled="!university">
                                         <template x-for="faculty in filteredFaculties" :key="faculty.id">
-                                            <option :value="faculty.id" x-text="faculty.name_faculty" :selected="faculty.id == {{ old('id_faculty', $course->id_faculty) }}"></option>
+                                            <option :value="faculty.id" x-text="faculty.name" :selected="faculty.id == {{ old('faculty_id', $course->faculty_id) }}"></option>
                                         </template>
                                     </select>
-                                    @error('id_faculty')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                                    @error('faculty_id')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                                 </div>
 
                                 <!-- Название курса -->
                                 <div>
-                                    <label for="name_course" class="block text-sm font-semibold text-gray-900">Название курса</label>
-                                    <input type="text" name="name_course" id="name_course" value="{{ old('name_course', $course->name_course) }}"
+                                    <label for="name" class="block text-sm font-semibold text-gray-900">Название курса</label>
+                                    <input type="text" name="name" id="name" value="{{ old('name', $course->name) }}"
                                            class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
-                                    @error('name_course')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
+                                    @error('name')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                                 </div>
                             </div>
 

@@ -32,10 +32,10 @@
                             <tbody class="divide-y divide-gray-200">
                                 @forelse($universities as $university)
                                     <tr class="hover:bg-gray-50">
-                                        <td class="py-3 px-4">{{ $university->name_university }}</td>
-                                        <td class="py-3 px-4 text-gray-400">{{ $university->address_university }}</td>
-                                        <td class="py-3 px-4 text-gray-400">{{ $university->phone_university }}</td>
-                                        <td class="py-3 px-4 text-gray-400">{{ $university->mail_university }}</td>
+                                        <td class="py-3 px-4">{{ $university->name }}</td>
+                                        <td class="py-3 px-4 text-gray-400">{{ $university->address }}</td>
+                                        <td class="py-3 px-4 text-gray-400">{{ $university->phone }}</td>
+                                        <td class="py-3 px-4 text-gray-400">{{ $university->mail }}</td>
                                         <td class="py-3 px-4 flex space-x-2">
                                             <a href="{{ route('cabinet.universities.edit', $university->id) }}"
                                                class="inline-flex items-center px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition">

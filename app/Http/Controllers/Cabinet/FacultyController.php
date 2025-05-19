@@ -45,11 +45,11 @@ class FacultyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_university' => 'required|exists:universities,id',
-            'name_faculty' => 'required|string|max:255',
+            'university_id' => 'required|exists:universities,id',
+            'name' => 'required|string|max:255',
         ]);
 
-        Faculty::create($request->only(['id_university', 'name_faculty']));
+        Faculty::create($request->only(['university_id', 'name']));
 
         return redirect()->route('cabinet.faculties.index')->with('success', 'Факультет создан');
     }
@@ -87,11 +87,11 @@ class FacultyController extends Controller
     public function update(Request $request, Faculty $faculty)
     {
         $request->validate([
-            'id_university' => 'required|exists:universities,id',
-            'name_faculty' => 'required|string|max:255',
+            'university_id' => 'required|exists:universities,id',
+            'name' => 'required|string|max:255',
         ]);
 
-        $faculty->update($request->only(['id_university', 'name_faculty']));
+        $faculty->update($request->only(['university_id', 'name']));
 
         return redirect()->route('cabinet.faculties.index')->with('success', 'Факультет обновлён');
     }

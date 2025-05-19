@@ -17,7 +17,7 @@ class ProjectNewsPolicy
 
     public function create(User $user): bool
     {
-        return $user->hasRole('student');
+        return $user->hasRole('admin') || $user->hasRole('student');
     }
 
     public function update(User $user, ProjectNews $news): bool

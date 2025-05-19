@@ -25,7 +25,7 @@
                         <tbody class="divide-y divide-gray-200">
                             @forelse($sourcelists as $sourcelist)
                                 <tr class="hover:bg-gray-50">
-                                    <td class="py-3 px-4">{{ $sourcelist->name_sourcelist }}</td>
+                                    <td class="py-3 px-4">{{ $sourcelist->name }}</td>
                                     <td class="py-3 px-4 flex space-x-2">
                                         <a href="{{ route('cabinet.sourcelists.edit', $sourcelist->id) }}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Изменить</a>
                                         <form action="{{ route('cabinet.sourcelists.destroy', $sourcelist->id) }}" method="POST">

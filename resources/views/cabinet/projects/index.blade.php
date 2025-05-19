@@ -30,14 +30,14 @@
                         <tbody class="divide-y divide-gray-200">
                             @forelse($projects as $project)
                                 <tr class="hover:bg-gray-50">
-                                    <td class="py-3 px-4">{{ $project->name_project }}</td>
-                                    <td class="py-3 px-4">{{ $project->status->namesource_net ?? '—' }}</td>
-                                    <td class="py-3 px-4">{{ Str::limit($project->discription_project, 100) }}</td>
+                                    <td class="py-3 px-4">{{ $project->name }}</td>
+                                    <td class="py-3 px-4">{{ $project->status->name ?? '—' }}</td>
+                                    <td class="py-3 px-4">{{ Str::limit($project->discription, 100) }}</td>
                                     <td class="py-3 px-4">
-                                        @php $firstMedia = $project->medias->first(); @endphp
+                                        @php $firstMedia = $project->media->first(); @endphp
 
                                         @if($firstMedia)
-                                            <img src="{{ asset('storage/projectmedia/' . $firstMedia->File_ProjectMedia) }}" alt="" class="w-16 h-16 object-cover rounded">
+                                            <img src="{{ asset('storage/projectmedia/' . $firstMedia->file_path) }}" alt="" class="w-16 h-16 object-cover rounded">
                                         @else
                                             —
                                         @endif

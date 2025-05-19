@@ -26,9 +26,9 @@
                         <tbody class="divide-y divide-gray-200">
                             @forelse($networklists as $networklist)
                                 <tr class="hover:bg-gray-50">
-                                    <td class="py-3 px-4">{{ $networklist->name_networkList }}</td>
+                                    <td class="py-3 px-4">{{ $networklist->name }}</td>
                                     <td class="py-3 px-4 text-blue-500 underline">
-                                        <a href="{{ $networklist->site_netWWorklist }}" target="_blank">{{ $networklist->site_netWWorklist }}</a>
+                                        <a href="{{ $networklist->site }}" target="_blank">{{ $networklist->site }}</a>
                                     </td>
                                     <td class="py-3 px-4 flex space-x-2">
                                         <a href="{{ route('cabinet.networklists.edit', $networklist->id) }}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Изменить</a>

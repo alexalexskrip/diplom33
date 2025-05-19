@@ -12,9 +12,16 @@ class ProjectNewsController extends Controller
 {
     public function index()
     {
-        $projectNews = ProjectNews::whereHas('project.users', function ($q) {
-            $q->where('id', auth()->id());
-        })->with('project')->latest()->paginate(10);
+        $user = auth()->user();
+
+        if ($user->hasRole('admin')) {
+            $projectNews = ProjectNews::with('project')->latest()->paginate(10);
+        } else {
+            $projectNews = ProjectNews::whereHas('project.users', function ($q) {
+                $q->where('users.id', auth()->id());
+            })->with('project')->latest()->paginate(10);
+        }
+
         return view('cabinet.projectnews.index', compact('projectNews'));
     }
 
@@ -31,18 +38,16 @@ class ProjectNewsController extends Controller
         $this->authorize('create', ProjectNews::class);
 
         $validated = $request->validate([
-            'id_project' => 'required|exists:projects,id',
-            'date_projectnews' => 'required|date',
-            'name_projectnews' => 'required|string|max:255',
-            'discription_projectnews' => 'nullable|string|max:255',
+            'project_id' => 'required|exists:projects,id',
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
         ]);
 
-        $project = auth()->user()->projects()->findOrFail($validated['id_project']);
+        $project = auth()->user()->projects()->findOrFail($validated['project_id']);
 
         $project->news()->create([
-            'date_projectnews' => $validated['date_projectnews'],
-            'name_projectnews' => $validated['name_projectnews'],
-            'discription_projectnews' => $validated['discription_projectnews'] ?? null,
+            'name' => $validated['name'],
+            'description' => $validated['description'] ?? null,
         ]);
 
         return redirect()->route('cabinet.projectnews.index')->with('success', 'Новость успешно добавлена.');
@@ -66,10 +71,9 @@ class ProjectNewsController extends Controller
         $this->authorize('update', $projectnews);
 
         $validated = $request->validate([
-            'id_project' => 'required|exists:projects,id',
-            'date_projectnews' => 'required|date',
-            'name_projectnews' => 'required|string|max:255',
-            'discription_projectnews' => 'nullable|string|max:255',
+            'project_id' => 'required|exists:projects,id',
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
         ]);
 
         $projectnews->update($validated);

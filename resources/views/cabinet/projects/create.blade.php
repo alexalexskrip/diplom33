@@ -11,40 +11,40 @@
                         @csrf
 
                         <div class="mb-4">
-                            <label for="name_project" class="block text-gray-700 font-medium">Название проекта</label>
-                            <input type="text" name="name_project" id="name_project" class="mt-1 block w-full" value="{{ old('name_project') }}">
-                            @error('name_project')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
+                            <label for="name" class="block text-gray-700 font-medium">Название проекта</label>
+                            <input type="text" name="name" id="name" class="mt-1 block w-full" value="{{ old('name') }}">
+                            @error('name')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
                         </div>
 
                         <div class="mb-4">
-                            <label for="discription_project" class="block text-gray-700 font-medium">Описание проекта</label>
-                            <textarea name="discription_project" id="discription_project" rows="3" class="mt-1 block w-full">{{ old('discription_project') }}</textarea>
-                            @error('discription_project')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
+                            <label for="description" class="block text-gray-700 font-medium">Описание проекта</label>
+                            <textarea name="description" id="description" rows="3" class="mt-1 block w-full">{{ old('description') }}</textarea>
+                            @error('description')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
                         </div>
 
                         <div class="mb-4">
-                            <label for="id_status" class="block text-gray-700 font-medium">Статус</label>
-                            <select name="id_status" id="id_status" class="mt-1 block w-full">
+                            <label for="status_id" class="block text-gray-700 font-medium">Статус</label>
+                            <select name="status_id" id="status_id" class="mt-1 block w-full">
                                 @foreach ($statuses as $status)
-                                    <option value="{{ $status->id }}" @selected(old('id_status') == $status->id)>
-                                        {{ $status->namesource_net }}
+                                    <option value="{{ $status->id }}" @selected(old('status_id') == $status->id)>
+                                        {{ $status->name }}
                                     </option>
                                 @endforeach
                             </select>
-                            @error('id_status')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
+                            @error('status_id')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
                         </div>
 
                         <div class="mb-4" x-data="{
                             selected: @js(old('source_lists', [])),
                             search: '',
-                            all: @js($sourceLists),
+                            all: @js($sources),
                             toggle(id) {
                                 const i = this.selected.indexOf(id);
                                 i === -1 ? this.selected.push(id) : this.selected.splice(i, 1);
                             },
                             filtered() {
                                 if (!this.search) return this.all;
-                                return this.all.filter(s => s.name_sourcelist.toLowerCase().includes(this.search.toLowerCase()));
+                                return this.all.filter(s => s.name.toLowerCase().includes(this.search.toLowerCase()));
                             },
                             newSource: '',
                             newSources: [],
@@ -69,7 +69,7 @@
                                                 @click="toggle(source.id)"
                                                 :class="selected.includes(source.id) ? 'bg-blue-100 text-blue-700' : 'bg-gray-100'"
                                                 class="px-3 py-1 rounded w-full text-left"
-                                                x-text="source.name_sourcelist">
+                                                x-text="source.name">
                                         </button>
                                     </div>
                                 </template>

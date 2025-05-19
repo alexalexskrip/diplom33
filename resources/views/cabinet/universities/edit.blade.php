@@ -20,11 +20,11 @@
                                 <div>
                                     <label for="name" class="block text-sm/6 font-semibold text-gray-900">Название <span class="text-red-500 font-semibold">*</span></label>
                                     <div class="mt-2.5">
-                                        <input type="text" name="name_university" id="name" value="{{ old('name_university', $university->name_university, ) }}"
+                                        <input type="text" name="name" id="name" value="{{ old('name', $university->name) }}"
                                                class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-600 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                                                required>
 
-                                        @error('name_university')
+                                        @error('name')
                                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                         @enderror
                                     </div>
@@ -33,11 +33,11 @@
                                 <div>
                                     <label for="address" class="block text-sm/6 font-semibold text-gray-900">Адрес <span class="text-red-500 font-semibold">*</span></label>
                                     <div class="mt-2.5">
-                                        <input type="text" name="address_university" id="address" value="{{ old('address_university', $university->address_university) }}"
+                                        <input type="text" name="address" id="address" value="{{ old('address', $university->address) }}"
                                                class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-600 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                                                required>
 
-                                        @error('address_university')
+                                        @error('address')
                                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                         @enderror
                                     </div>
@@ -46,11 +46,11 @@
                                 <div>
                                     <label for="phone" class="block text-sm/6 font-semibold text-gray-900">Телефон <span class="text-red-500 font-semibold">*</span></label>
                                     <div class="mt-2.5">
-                                        <input type="text" name="phone_university" id="phone" value="{{ old('phone_university', $university->phone_university) }}"
+                                        <input type="text" name="phone" id="phone" value="{{ old('phone', $university->phone) }}"
                                                class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-600 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                                                required>
 
-                                        @error('phone_university')
+                                        @error('phone')
                                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                         @enderror
                                     </div>
@@ -59,11 +59,11 @@
                                 <div>
                                     <label for="email" class="block text-sm/6 font-semibold text-gray-900">Email <span class="text-red-500 font-semibold">*</span></label>
                                     <div class="mt-2.5">
-                                        <input type="email" name="mail_university" id="email" value="{{ old('mail_university', $university->mail_university) }}"
+                                        <input type="email" name="email" id="email" value="{{ old('email', $university->email) }}"
                                                class="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-600 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
                                                required>
 
-                                        @error('mail_university')
+                                        @error('email')
                                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                         @enderror
                                     </div>

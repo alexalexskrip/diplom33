@@ -29,9 +29,9 @@
                         <tbody class="divide-y divide-gray-200">
                             @forelse($projectNews as $news)
                                 <tr class="hover:bg-gray-50">
-                                    <td class="py-3 px-4">{{ Str::limit($news->name_projectnews) }}</td>
-                                    <td class="py-3 px-4">{{ $news->project->name_project ?? '—' }}</td>
-                                    <td class="py-3 px-4">{{ $news->date_projectnews->format('d.m.Y') }}</td>
+                                    <td class="py-3 px-4">{{ Str::limit($news->name) }}</td>
+                                    <td class="py-3 px-4">{{ $news->project->name ?? '—' }}</td>
+                                    <td class="py-3 px-4">{{ $news->created_at->format('d.m.Y') }}</td>
                                     <td class="py-3 px-4">
                                         <div class="flex items-center space-x-2">
                                             <a href="{{ route('cabinet.projectnews.show', $news->id) }}" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Смотреть</a>

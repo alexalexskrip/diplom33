@@ -28,10 +28,10 @@
                         <tbody class="divide-y divide-gray-200">
                             @forelse($groups as $group)
                                 <tr class="hover:bg-gray-50">
-                                    <td class="py-3 px-4">{{ $group->name_group }}</td>
-                                    <td class="py-3 px-4 text-gray-500">{{ $group->course->name_course }}</td>
-                                    <td class="py-3 px-4 text-gray-500">{{ $group->course->faculty->name_faculty }}</td>
-                                    <td class="py-3 px-4 text-gray-500">{{ $group->course->faculty->university->name_university }}</td>
+                                    <td class="py-3 px-4">{{ $group->name }}</td>
+                                    <td class="py-3 px-4 text-gray-500">{{ $group->course->name }}</td>
+                                    <td class="py-3 px-4 text-gray-500">{{ $group->course->faculty->name }}</td>
+                                    <td class="py-3 px-4 text-gray-500">{{ $group->course->faculty->university->name }}</td>
                                     <td class="py-3 px-4 flex space-x-2">
                                         <a href="{{ route('cabinet.groups.edit', $group->id) }}" class="inline-flex items-center px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
                                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

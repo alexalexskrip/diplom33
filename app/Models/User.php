@@ -50,4 +50,9 @@ class User extends Authenticatable
             ->withPivot('url')
             ->withTimestamps();
     }
+
+    public function getFullNameAttribute(): string
+    {
+        return trim("{$this->firstname} {$this->patronymic} {$this->lastname}");
+    }
 }
