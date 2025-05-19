@@ -56,8 +56,8 @@ class Project extends Model
     {
         $firstMedia = $this->media->first();
 
-        return $firstMedia && $firstMedia->file
-            ? asset('storage/projectmedia/'.$firstMedia->file)
+        return $firstMedia && $firstMedia->file_path
+            ? asset('storage/projectmedia/'.$firstMedia->file_path)
             : asset('images/no_photo.jpg');
     }
 }

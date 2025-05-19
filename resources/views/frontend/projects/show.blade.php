@@ -16,18 +16,18 @@
             <h2 class="mb-2">Описание проекта:</h2>
 
             <div>
-                {{ $project->discription_project }}
+                {{ $project->description }}
             </div>
         </div>
 
-        @if($project->medias)
+        @if($project->media)
             <div class="mt-4">
                 <h2 class="mb-2">Фотографии:</h2>
 
                 <div class="row g-4">
-                    @foreach($project->medias as $medium)
+                    @foreach($project->media as $medium)
                         <div class="col-6 col-md-3">
-                            <img src="{{ $medium->File_ProjectMedia ? asset('storage/projectmedia/' . $medium->File_ProjectMedia) : asset('images/no_photo.jpg') }}" alt="Image" class="img-fluid rounded shadow-sm">
+                            <img src="{{ $medium->file_path ? asset('storage/projectmedia/' . $medium->file_path) : asset('images/no_photo.jpg') }}" alt="Image" class="img-fluid rounded shadow-sm">
                         </div>
                     @endforeach
                 </div>

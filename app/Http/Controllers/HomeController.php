@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $projects = Project::with(['users.group', 'medias'])
+        $projects = Project::with(['users.group', 'media'])
             ->latest()
             ->take(10)
             ->get();
@@ -23,9 +23,9 @@ class HomeController extends Controller
             ->map(function ($p) {
                 return [
                     'author' => $p->users->first()->fullname,
-                    'group' => Str::limit($p->users->first()->group->name_group, 10),
-                    'title' => $p->name_project,
-                    'description' => Str::limit($p->discription_project, 120),
+                    'group' => Str::limit($p->users->first()->group->name, 10),
+                    'title' => $p->name,
+                    'description' => Str::limit($p->description, 120),
                     'image' => $p->getFirstImageUrl(),
                     'views' => 50,
                     'votes' => 29,
