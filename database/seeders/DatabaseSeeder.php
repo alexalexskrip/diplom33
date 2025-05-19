@@ -30,11 +30,11 @@ class DatabaseSeeder extends Seeder
             FacultySeeder::class,
             CourseSeeder::class,
             GroupSeeder::class,
-            UserSeeder::class,
-            AdminSeeder::class,
             ProjectSeeder::class,
             ProjectNewsSeeder::class,
             ProjectMediaSeeder::class,
+            UserSeeder::class,
+            AdminSeeder::class,
         ]);
     }
 }
