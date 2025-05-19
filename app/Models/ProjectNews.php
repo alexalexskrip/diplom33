@@ -10,22 +10,16 @@ class ProjectNews extends Model {
 
     use HasFactory;
 
-    protected $table = 'projectnews';
+    protected $table = 'project_news';
 
     protected $fillable = [
-        'id_project',
-        'date_projectnews',
-        'name_projectnews',
-        'discription_projectnews'
-    ];
-
-    protected $casts = [
-        'date_projectnews' => 'date'
+        'project_id',
+        'name',
+        'description',
     ];
 
     public function project(): BelongsTo
     {
-        return $this->belongsTo(Project::class, 'id_project');
+        return $this->belongsTo(Project::class);
     }
-
 }

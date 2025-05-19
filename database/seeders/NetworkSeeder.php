@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Network;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
 
-class RoleSeeder extends Seeder
+class NetworkSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,11 +16,9 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        Role::query()->truncate();
+        DB::table('networks')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-        Role::query()->firstOrCreate(['name' => 'admin']);
-        Role::query()->firstOrCreate(['name' => 'teacher']);
-        Role::query()->firstOrCreate(['name' => 'student']);
+        Network::factory()->count(15)->create();
     }
 }

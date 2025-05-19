@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\University;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
 
-class RoleSeeder extends Seeder
+class UniversitySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,11 +16,9 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        Role::query()->truncate();
+        DB::table('universities')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-        Role::query()->firstOrCreate(['name' => 'admin']);
-        Role::query()->firstOrCreate(['name' => 'teacher']);
-        Role::query()->firstOrCreate(['name' => 'student']);
+        University::factory()->count(5)->create();
     }
 }

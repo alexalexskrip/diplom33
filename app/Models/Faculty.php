@@ -11,15 +11,15 @@ class Faculty extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id_university', 'name_faculty'];
+    protected $fillable = ['university_id', 'name'];
 
     public function university(): BelongsTo
     {
-        return $this->belongsTo(University::class, 'id_university');
+        return $this->belongsTo(University::class);
     }
 
     public function courses(): HasMany
     {
-        return $this->hasMany(Course::class, 'id_faculty');
+        return $this->hasMany(Course::class);
     }
 }

@@ -89,14 +89,14 @@ class CourseSeeder extends Seeder
             ],
         ];
 
-        Faculty::query()->whereIn('name_faculty', array_keys($coursesPerFaculty))->get()->each(function ($faculty) use ($coursesPerFaculty) {
-            $name = $faculty->name_faculty;
+        Faculty::all()->each(function ($faculty) use ($coursesPerFaculty) {
+            $name = $faculty->name;
             $courseList = $coursesPerFaculty[$name] ?? [];
 
             foreach ($courseList as $courseName) {
                 Course::create([
-                    'id_faculty' => $faculty->id,
-                    'name_course' => $courseName,
+                    'faculty_id' => $faculty->id,
+                    'name' => $courseName,
                 ]);
             }
         });

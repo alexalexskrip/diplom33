@@ -12,17 +12,17 @@ class Course extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_faculty',
-        'name_course',
+        'faculty_id',
+        'name',
     ];
 
     public function faculty(): BelongsTo
     {
-        return $this->belongsTo(Faculty::class, 'id_faculty');
+        return $this->belongsTo(Faculty::class);
     }
 
     public function groups(): HasMany
     {
-        return $this->hasMany(Group::class, 'id_course');
+        return $this->hasMany(Group::class);
     }
 }

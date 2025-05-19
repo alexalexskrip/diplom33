@@ -12,20 +12,22 @@ class ProjectMedia extends Model
     use HasFactory;
 
     protected $fillable = [
-        'Id_project',
-        'NumFile_ProjectMedia',
-        'File_ProjectMedia',
+        'project_id',
+        'file_path',
+        'position',
     ];
 
     protected static function booted(): void
     {
         static::deleting(function ($media) {
-            Storage::disk('public')->delete("projectmedia/{$media->File_ProjectMedia}");
+            if ($media->file_path) {
+                Storage::disk('public')->delete("projectmedia/{$media->file_path}");
+            }
         });
     }
 
     public function project(): BelongsTo
     {
-        return $this->belongsTo(Project::class, 'Id_project');
+        return $this->belongsTo(Project::class);
     }
 }

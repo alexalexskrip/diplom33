@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Cabinet;
 
 use App\Http\Controllers\Controller;
-use App\Models\Networklist;
+use App\Models\Network;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -20,7 +20,7 @@ class NetworklistController extends Controller
      */
     public function index()
     {
-        $networklists = Networklist::query()->orderBy('name_networkList')->paginate(20);
+        $networklists = Network::query()->orderBy('name_networkList')->paginate(20);
         return view('cabinet.networklists.index', compact('networklists'));
     }
 
@@ -47,7 +47,7 @@ class NetworklistController extends Controller
             'site_netWWorklist' => 'required|url|max:50',
         ]);
 
-        Networklist::create($request->only(['name_networkList', 'site_netWWorklist']));
+        Network::create($request->only(['name_networkList', 'site_netWWorklist']));
 
         return redirect()->route('cabinet.networklists.index')->with('success', 'Сеть добавлена');
     }
@@ -55,10 +55,10 @@ class NetworklistController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Networklist  $networklist
+     * @param  Network  $networklist
      * @return Response
      */
-    public function show(Networklist $networklist)
+    public function show(Network $networklist)
     {
         //
     }
@@ -66,10 +66,10 @@ class NetworklistController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Networklist  $networklist
+     * @param  Network  $networklist
      * @return Application|Factory|\Illuminate\Contracts\View\View|View
      */
-    public function edit(Networklist $networklist)
+    public function edit(Network $networklist)
     {
         return view('cabinet.networklists.edit', compact('networklist'));
     }
@@ -78,10 +78,10 @@ class NetworklistController extends Controller
      * Update the specified resource in storage.
      *
      * @param  Request  $request
-     * @param  Networklist  $networklist
+     * @param  Network  $networklist
      * @return RedirectResponse
      */
-    public function update(Request $request, Networklist $networklist)
+    public function update(Request $request, Network $networklist)
     {
         $request->validate([
             'name_networkList' => 'required|string|max:50',
@@ -96,10 +96,10 @@ class NetworklistController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Networklist  $networklist
+     * @param  Network  $networklist
      * @return RedirectResponse
      */
-    public function destroy(Networklist $networklist)
+    public function destroy(Network $networklist)
     {
         $networklist->delete();
         return redirect()->route('cabinet.networklists.index')->with('success', 'Сеть удалена');

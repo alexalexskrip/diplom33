@@ -32,8 +32,8 @@ class FacultySeeder extends Seeder
         University::all()->each(function ($university) use ($names) {
             foreach ($names as $name) {
                 Faculty::create([
-                    'id_university' => $university->id,
-                    'name_faculty' => $name,
+                    'university_id' => $university->id,
+                    'name' => $name,
                 ]);
             }
         });

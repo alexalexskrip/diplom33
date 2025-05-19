@@ -40,9 +40,9 @@ class ProjectMediaFactory extends Factory
         file_put_contents($filepath, $imageContent);
 
         return [
-            'Id_project' => Project::query()->inRandomOrder()->value('id') ?? Project::factory(),
-            'File_ProjectMedia' => $filename,
-            'NumFile_ProjectMedia' => 0, // будет переопределено в сидере
+            'project_id' => Project::query()->inRandomOrder()->value('id') ?? Project::factory(),
+            'file_path' => $filename,
+            'position' => 0,
         ];
     }
 }

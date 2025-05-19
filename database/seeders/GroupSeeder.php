@@ -19,8 +19,8 @@ class GroupSeeder extends Seeder
             $count = rand(3, 5);
 
             for ($i = 0; $i < $count; $i++) {
-                $group = Group::factory()->create(['id_course' => $course->id]);
-                dump("Создана: {$group->name_group} (Курс ID: {$group->id_course})");
+                $group = Group::factory()->create(['course_id' => $course->id]);
+                dump("Создана: {$group->name} (Курс ID: {$group->course_id})");
             }
         });
     }

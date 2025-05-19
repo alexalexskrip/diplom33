@@ -17,9 +17,9 @@ class ProjectMediaSeeder extends Seeder
      */
     public function run(): void
     {
-        // Удалим старые изображения с диска вручную
+        // Удаляем старые изображения с диска
         foreach (ProjectMedia::all() as $media) {
-            Storage::disk('public')->delete("projectmedia/{$media->File_ProjectMedia}");
+            Storage::disk('public')->delete("projectmedia/{$media->file_path}");
         }
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
@@ -32,13 +32,12 @@ class ProjectMediaSeeder extends Seeder
 
         Storage::disk('public')->makeDirectory('projectmedia');
 
-        // Добавим к каждому проекту случайное количество изображений от 1 до 4
         foreach (Project::all() as $project) {
             $count = rand(1, 4);
-            for ($i = 1; $i < $count; $i++) {
+            for ($i = 0; $i < $count; $i++) {
                 ProjectMedia::factory()->create([
-                    'Id_project' => $project->id,
-                    'NumFile_ProjectMedia' => $i
+                    'project_id' => $project->id,
+                    'position' => $i
                 ]);
             }
         }

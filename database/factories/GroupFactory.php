@@ -8,13 +8,11 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class GroupFactory extends Factory
 {
-    protected $model = Group::class;
-
     public function definition(): array
     {
         return [
-            'id_course' => Course::inRandomOrder()->value('id') ?? Course::factory(),
-            'name_group' => 'Группа ' . $this->faker->words(2, true),
+            'course_id' => Course::inRandomOrder()->value('id') ?? Course::factory(),
+            'name' => 'Группа ' . $this->faker->words(2, true),
         ];
     }
 }

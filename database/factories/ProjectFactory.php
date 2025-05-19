@@ -2,11 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\StatusList;
+use App\Models\Project;
+use App\Models\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Project>
+ * @extends Factory<Project>
  */
 class ProjectFactory extends Factory
 {
@@ -18,9 +19,9 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_status' => StatusList::query()->inRandomOrder()->value('id') ?? StatusList::factory(),
-            'name_project' => $this->faker->sentence(3),
-            'discription_project' => $this->faker->text(255),
+            'status_id' => Status::query()->inRandomOrder()->value('id') ?? Status::factory(),
+            'name' => $this->faker->sentence(3),
+            'description' => $this->faker->text(255),
         ];
     }
 }
