@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-cabinet-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Факультеты') }}
@@ -42,4 +42,4 @@
             </div>
         </div>
     </section>
-</x-app-layout>
+</x-cabinet-layout>
