@@ -6,13 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\Source;
 use App\Models\Status;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
-use Str;
 
 class ProjectController extends Controller
 {
@@ -37,7 +32,7 @@ class ProjectController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'status_id' => 'required|exists:statuses,id',
-            'media_files.*' => 'nullable|image|max:5120',
+            'media.*' => 'nullable|file|max:10240',
             'source_lists' => 'array',
             'source_lists.*' => 'exists:sources,id',
             'new_sources' => 'array',
@@ -59,9 +54,7 @@ class ProjectController extends Controller
         $project->users()->attach(Auth::id());
         $project->sources()->sync($sourceIds);
 
-        if ($request->hasFile('media_files')) {
-            $this->handleMediaUpload($request, $project);
-        }
+        $this->addMedia($request, $project);
 
         return redirect()->route('cabinet.projects.index')->with('success', 'Проект создан.');
     }
@@ -75,28 +68,11 @@ class ProjectController extends Controller
         return view('cabinet.projects.create', compact('statuses', 'sources'));
     }
 
-    protected function handleMediaUpload(Request $request, Project $project)
-    {
-        $currentPos = $project->media()->max('position') ?? 0;
-
-        foreach ($request->file('media_files') as $file) {
-            $filename = uniqid('project_').Str::uuid().'.'.$file->getClientOriginalExtension();
-            $file->storeAs('projectmedia', $filename, 'public');
-
-            $currentPos++;
-
-            $project->media()->create([
-                'file_path' => $filename,
-                'position' => $currentPos,
-            ]);
-        }
-    }
-
     public function show(Project $project)
     {
         $this->authorize('view', $project);
 
-        $project->load('media', 'status', 'sources', 'users');
+        $project->load('status', 'sources', 'users');
 
         return view('cabinet.projects.show', compact('project'));
     }
@@ -118,7 +94,7 @@ class ProjectController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'status_id' => 'required|exists:statuses,id',
-            'media_files.*' => 'nullable|image|max:5120',
+            'media.*' => 'nullable|file|max:10240',
             'source_lists' => 'array',
             'source_lists.*' => 'exists:sources,id',
             'new_source' => 'nullable|string|max:255',
@@ -132,9 +108,7 @@ class ProjectController extends Controller
         $project->update($validated);
         $project->sources()->sync($validated['source_lists'] ?? []);
 
-        if ($request->hasFile('media_files')) {
-            $this->handleMediaUpload($request, $project);
-        }
+        $this->addMedia($request, $project);
 
         return redirect()->route('cabinet.projects.index')->with('success', 'Проект обновлён.');
     }
@@ -149,4 +123,43 @@ class ProjectController extends Controller
 
         return redirect()->route('cabinet.projects.index')->with('success', 'Проект удалён.');
     }
+
+    /**
+     * @param  Request  $request
+     * @param $project
+     * @return void
+     */
+    public function addMedia(Request $request, $project): void
+    {
+        if ($request->hasFile('media')) {
+            // Получаем текущую максимальную позицию
+            $position = $project->getMedia('images')->max('custom_properties.position') ?? 0;
+
+            foreach ($request->file('media') as $file) {
+                $mime = $file->getMimeType();
+
+                if (str_starts_with($mime, 'image/')) {
+                    $collection = 'images';
+
+                    $project->addMedia($file)
+                        ->withCustomProperties(['position' => ++$position])
+                        ->toMediaCollection($collection);
+
+                } elseif (in_array($mime, ['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain', 'application/pdf'])) {
+                    $collection = 'documents';
+
+                    $project->addMedia($file)->toMediaCollection($collection);
+
+                } elseif (str_starts_with($mime, 'video/')) {
+                    $collection = 'videos';
+
+                    $project->addMedia($file)->toMediaCollection($collection);
+
+                } else {
+                    $project->addMedia($file)->toMediaCollection('default');
+                }
+            }
+        }
+    }
+
 }

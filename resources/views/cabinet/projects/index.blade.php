@@ -32,12 +32,15 @@
                                 <tr class="hover:bg-gray-50">
                                     <td class="py-3 px-4">{{ $project->name }}</td>
                                     <td class="py-3 px-4">{{ $project->status->name ?? '—' }}</td>
-                                    <td class="py-3 px-4">{{ Str::limit($project->description, 100) }}</td>
+                                    <td class="py-3 px-4">{{ Str::limit($project->description) }}</td>
                                     <td class="py-3 px-4">
-                                        @php $firstMedia = $project->media->first(); @endphp
 
-                                        @if($firstMedia)
-                                            <img src="{{ asset('storage/projectmedia/' . $firstMedia->file_path) }}" alt="" class="w-16 h-16 object-cover rounded">
+                                        @php
+                                            $firstImage = $project->getMedia('images')->sortBy('custom_properties.position')->first();
+                                        @endphp
+
+                                        @if($firstImage)
+                                            <img src="{{ $firstImage->getUrl() }}" alt="" class="w-16 h-16 object-cover rounded">
                                         @else
                                             —
                                         @endif

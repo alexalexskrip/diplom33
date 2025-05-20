@@ -13,13 +13,13 @@
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700 font-medium">Название проекта</label>
                             <input type="text" name="name" id="name" class="mt-1 block w-full" value="{{ old('name') }}">
-                            @error('name')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
+                            @error('name')<div class="text-red-500 text-sm mt-2">{{ $message }}</div>@enderror
                         </div>
 
                         <div class="mb-4">
                             <label for="description" class="block text-gray-700 font-medium">Описание проекта</label>
                             <textarea name="description" id="description" rows="3" class="mt-1 block w-full">{{ old('description') }}</textarea>
-                            @error('description')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
+                            @error('description')<div class="text-red-500 text-sm mt-2">{{ $message }}</div>@enderror
                         </div>
 
                         <div class="mb-4">
@@ -31,7 +31,7 @@
                                     </option>
                                 @endforeach
                             </select>
-                            @error('status_id')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
+                            @error('status_id')<div class="text-red-500 text-sm mt-2">{{ $message }}</div>@enderror
                         </div>
 
                         <div class="mb-4" x-data="{
@@ -85,7 +85,7 @@
                                     <input type="text" id="new_source" x-model="newSource" class="block w-full border px-3 py-1 rounded">
                                     <button type="button" @click="addNewSource" class="bg-green-500 text-white px-4 py-1 rounded">Добавить</button>
                                 </div>
-                                @error('new_sources')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
+                                @error('new_sources')<div class="text-red-500 text-sm mt-2">{{ $message }}</div>@enderror
                             </div>
 
                             <div class="mt-2">
@@ -100,9 +100,9 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="media_files" class="block text-gray-700 mb-2 font-medium">Добавить изображения</label>
-                            <input type="file" id="media_files" name="media_files[]" multiple>
-                            @error('media_files.*')<div class="text-red-500 text-sm">{{ $message }}</div>@enderror
+                            <label for="media" class="block text-gray-700 mb-2 font-medium">Прикрепить файлы (изображения, документы, видео)</label>
+                            <input type="file" id="media" name="media[]" multiple>
+                            @error('media.*')<div class="text-red-500 text-sm mt-2">{{ $message }}</div>@enderror
                         </div>
 
                         <div class="mt-10 flex items-center">

@@ -56,6 +56,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/projects/{project}/sources/{source}', [ProjectSourceDetachController::class, 'detach'])
             ->name('project.sources.detach');
 
+        Route::delete('/project-media/{media}', [ProjectMediaController::class, 'destroy'])
+            ->name('cabinet.project-media.destroy')
+            ->whereNumber('media');
+
         Route::resource('project-media', ProjectMediaController::class);
         Route::resource('projectnews', ProjectNewsController::class);
 
