@@ -52,7 +52,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        $project->load('media', 'users');
+        $project->load('users');
         return view('frontend.projects.show', compact('project'));
     }
 

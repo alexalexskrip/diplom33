@@ -2,7 +2,15 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-sm-12 col-lg-2 mb-3">
-                    <div class="logo"><img src="{{ asset('images/logo_footer.png') }}" alt=""></div>
+                    <div class="logo">
+                        @if(request()->routeIs('frontend.home'))
+                            <img src="{{ asset('images/logo_footer.png') }}" alt="">
+                        @else
+                            <a href="{{ route('frontend.home') }}" class="logo">
+                                <img src="{{ asset('images/logo_footer.png') }}" alt="">
+                            </a>
+                        @endif
+                    </div>
                 </div>
                 <div class="col-sm-12 col-lg-5 mb-3">
                     <div class="menu">

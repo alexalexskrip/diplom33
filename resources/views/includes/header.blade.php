@@ -27,7 +27,13 @@
                     <div class="row align-items-center">
                         <div class="col-2">
                             <div class="logo">
-                                <img src="{{ asset('images/imgpsh_fullsize_anim.png') }}" alt="">
+                                @if(request()->routeIs('frontend.home'))
+                                    <img src="{{ asset('images/imgpsh_fullsize_anim.png') }}" alt="">
+                                @else
+                                    <a href="{{ route('frontend.home') }}">
+                                        <img src="{{ asset('images/imgpsh_fullsize_anim.png') }}" alt="">
+                                    </a>
+                                @endif
                             </div>
                         </div>
                         <div class="col-10">
