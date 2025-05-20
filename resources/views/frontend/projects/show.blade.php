@@ -68,7 +68,7 @@
 
                 <div class="row g-4">
                     @foreach($videos as $media)
-                        <div class="col-12 col-md-6">
+                        <div class="col-6 col-md-3">
                             <video controls class="w-100 rounded shadow-sm">
                                 <source src="{{ $media->getUrl() }}" type="{{ $media->mime_type }}">
                                 Ваш браузер не поддерживает видео.
