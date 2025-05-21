@@ -14,6 +14,7 @@ use App\Http\Controllers\Cabinet\SourceController;
 use App\Http\Controllers\Cabinet\StatusController;
 use App\Http\Controllers\Cabinet\UniversityController;
 use App\Http\Controllers\Cabinet\UserController;
+use App\Http\Controllers\Frontend\FeedbackController;
 use App\Http\Controllers\Frontend\ProjectController as FrontendProjectController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,9 @@ Route::name('frontend.')->group(function () {
     Route::name('projects.')->group(function () {
         Route::get('/projects/{project}', [FrontendProjectController::class, 'show'])->name('show');
     });
+
+    Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback.form');
+    Route::post('/feedback', [FeedbackController::class, 'send'])->name('feedback.send');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {

@@ -42,7 +42,7 @@
                                     <div class="menu">
                                         <ul>
                                             <li><a href="#">Как это работает?</a></li>
-                                            <li><a href="#">Обратная связь</a></li>
+                                            <li><a href="{{ route('frontend.feedback.form') }}">Обратная связь</a></li>
                                             <li><a href="#">Вопрос-ответ</a></li>
                                             {{--                                    <li><a href="{{ route('cabinet.dashboard') }}">Кабинет</a></li>--}}
                                         </ul>
