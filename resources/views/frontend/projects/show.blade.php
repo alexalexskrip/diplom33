@@ -2,7 +2,7 @@
 
 <main>
     <div class="container my-5">
-        <h1>{{ $project->name_project }}</h1>
+        <h1>{{ $project->name }}</h1>
 
         <div class="mt-4">
             <h2 class="mb-2">Студенты:</h2>

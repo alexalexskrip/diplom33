@@ -16,6 +16,7 @@ use App\Http\Controllers\Cabinet\UniversityController;
 use App\Http\Controllers\Cabinet\UserController;
 use App\Http\Controllers\Frontend\FeedbackController;
 use App\Http\Controllers\Frontend\ProjectController as FrontendProjectController;
+use App\Http\Controllers\Frontend\ProjectNewsController as FrontendProjectNewsController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,10 @@ Route::name('frontend.')->group(function () {
 
     Route::name('projects.')->group(function () {
         Route::get('/projects/{project}', [FrontendProjectController::class, 'show'])->name('show');
+    });
+
+    Route::name('project-news.')->group(function () {
+        Route::get('/projectnews/{news}', [FrontendProjectNewsController::class, 'show'])->name('show');
     });
 
     Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback.form');

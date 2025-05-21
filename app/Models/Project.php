@@ -21,6 +21,10 @@ class Project extends Model implements HasMedia
         'description',
     ];
 
+    protected $attributes = [
+        'status_id' => 2, // По умолчанию — «На рассмотрении»
+    ];
+
     public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class);

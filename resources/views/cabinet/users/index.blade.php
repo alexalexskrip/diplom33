@@ -31,7 +31,7 @@
                                 <tr class="hover:bg-gray-50">
                                     <td class="py-3 px-4">{{ $user->fullname }}</td>
                                     <td class="py-3 px-4">{{ $user->email }}</td>
-                                    <td class="py-3 px-4">{{ $user->group->course->faculty->university->name_university ?? '—' }}</td>
+                                    <td class="py-3 px-4">{{ Str::limit($user->group->name, 50) ?? '—' }}</td>
                                     <td class="py-3 px-4">
                                         <div class="flex space-x-2 items-center">
                                             @can('update', $user)

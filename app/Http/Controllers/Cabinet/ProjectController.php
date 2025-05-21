@@ -29,16 +29,24 @@ class ProjectController extends Controller
     {
         $this->authorize('create', Project::class);
 
-        $validated = $request->validate([
+        $rules = [
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'status_id' => 'required|exists:statuses,id',
             'media.*' => 'nullable|file|max:10240',
-            'source_lists' => 'array',
+            'source_lists' => 'nullable|array',
             'source_lists.*' => 'exists:sources,id',
-            'new_sources' => 'array',
-            'new_sources.*' => 'string|max:255',
-        ]);
+            'new_sources' => 'nullable|array',
+            'new_sources.*' => 'nullable|string|max:255',
+        ];
+
+        if (Auth::user()->hasRole('admin') && $request->filled('status_id')) {
+            $rules['status_id'] = 'required|exists:statuses,id';
+        }
+
+        $validated = $request->validate($rules);
+
+        // Очистка пустых new_sources
+        $validated['new_sources'] = array_filter($validated['new_sources'] ?? [], fn($v) => !is_null($v) && $v !== '');
 
         $sourceIds = $validated['source_lists'] ?? [];
 
@@ -57,7 +65,11 @@ class ProjectController extends Controller
 
         $this->addMedia($request, $project);
 
-        return redirect()->route('cabinet.projects.index')->with('success', 'Проект создан.');
+//        return Auth::user()->hasRole('admin')
+//            ? redirect()->route('cabinet.projects.index')->with('success', 'Проект создан.')
+//            : redirect()->back()->with('success', 'Инициатива отправлена на рассмотрение.');
+
+        return redirect()->back()->with('success', 'Инициатива отправлена на рассмотрение.');
     }
 
     public function create()

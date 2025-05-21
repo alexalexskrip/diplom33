@@ -39,7 +39,7 @@
                     <div class="mt-6">
                         <label class="block text-sm font-medium text-gray-700">Университет / Факультет / Курс / Группа</label>
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-2">
-                            <div x-effect="updateOptions()"></div>
+                            <div x-effect="updateOptions()" class="hidden"></div>
                             <select x-model="selectedUniversity" @change="manualChange = true" class="border rounded p-2">
                                 <option value="">Выберите университет</option>
                                 @foreach($universities as $university)

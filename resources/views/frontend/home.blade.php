@@ -90,11 +90,15 @@
     </div>
 </main>
 
-<section class="my-5">
-    <div class="container text-end">
-        <a class="main_btn" href="#"><i class="fa-solid fa-plus"></i> Опубликовать инициативу</a>
-    </div>
-</section>
+@can('create', App\Models\Project::class)
+    <section class="my-5">
+        <div class="container text-end">
+            <button type="button" class="main_btn border-0" data-bs-toggle="modal" data-bs-target="#projectModal">
+                <i class="fa-solid fa-plus me-2"></i> Опубликовать инициативу
+            </button>
+        </div>
+    </section>
+@endcan
 
 <section class="my-5">
     <div class="container" x-data="sliderData('review')" x-init="true">
@@ -151,7 +155,8 @@
                             <p class="text-ellipsis" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;" x-text="project.description"></p>
                         </div>
                         <div class="mt-auto position-relative">
-                            <img :src="project.image" alt="" loading="lazy" class="w-100 object-cover" style="height: 300px; object-fit: cover; border-bottom-left-radius: 1rem; border-bottom-right-radius: 1rem;">
+                            <img :src="project.image" alt="" loading="lazy" class="w-100 object-cover"
+                                 style="height: 300px; object-fit: cover; border-bottom-left-radius: 1rem; border-bottom-right-radius: 1rem;">
                             <div class="position-absolute bottom-4 start-3">
                                 <a class="post_btn" :href="project.link">
                                     Смотреть <span class="arrow_bg"><i class="fa-solid fa-arrow-right"></i></span>
@@ -193,5 +198,62 @@
     </div>
 </section>
 
+<div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <form method="POST" action="{{ route('cabinet.projects.store') }}" enctype="multipart/form-data" class="modal-content">
+            @csrf
+            <div class="modal-header">
+                <h5 class="modal-title" id="projectModalLabel">Новая инициатива</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Название проекта</label>
+                    <input type="text" name="name" id="name" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Описание проекта</label>
+                    <textarea name="description" id="description" class="form-control" rows="4" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="source_lists" class="form-label">Использованные источники</label>
+                    <select name="source_lists[]" id="source_lists" class="selectpicker form-select" multiple data-live-search="true" data-style="form-control" data-actions-box="true"
+                            title="Выберите источники">
+                        @foreach($sources as $source)
+                            <option value="{{ $source->id }}">{{ $source->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="new_sources[]" class="form-label">Новый источник (если нет в списке)</label>
+                    <input type="text" name="new_sources[]" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label for="media[]" class="form-label">Прикрепить файлы (изображения, документы, видео)</label>
+                    <input type="file" name="media[]" id="media" class="form-control" multiple>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </form>
+
+        @if ($errors->any())
+            <div class="alert alert-danger mt-3">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+    </div>
+</div>
 
 @include('includes.footer')

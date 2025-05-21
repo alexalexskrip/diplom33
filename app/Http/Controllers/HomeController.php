@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\ProjectNews;
+use App\Models\Source;
 use Illuminate\Support\Str;
 
 class HomeController extends Controller
@@ -24,15 +25,18 @@ class HomeController extends Controller
                     'date' => $news->created_at->format('d.m.Y'),
                     'tags' => ['#Учёба', '#Каникулы'], // здесь можно динамику позже
                     'bgClass' => 'bg-salad', // или рандомный/по теме
-                    'link' => route('frontend.projects.show', $news), // добавь нужный маршрут
+                    'link' => route('frontend.project-news.show', $news),
                 ];
             });
+
+        $sources = Source::query()->orderBy('name')->get();
 
         return view('frontend.home', [
             'formattedVotesProjects' => $formattedVotesProjects,
             'formattedReviewProjects' => $formattedReviewProjects,
             'formattedAcceptedProjects' => $formattedAcceptedProjects,
             'formattedNews' => $formattedNews,
+            'sources' => $sources
         ]);
     }
 
@@ -50,7 +54,7 @@ class HomeController extends Controller
             ->map(function ($p) {
                 $user = $p->users->first();
                 return [
-                    'author' => $user->fullname,
+                    'author' => $user->firstname . ' ' . $user->lastname,
                     'group' => Str::limit($user->group->name, 10),
                     'title' => $p->name,
                     'description' => Str::limit($p->description, 120),
