@@ -65,6 +65,10 @@
                     <x-nav-link :href="route('cabinet.projectnews.index')" :active="request()->routeIs('cabinet.projectnews.index')">
                         Новости проектов
                     </x-nav-link>
+
+                    <x-nav-link :href="route('cabinet.students.index')" :active="request()->routeIs('cabinet.students.index')">
+                        Студенты
+                    </x-nav-link>
                 </div>
             </div>
 

@@ -34,6 +34,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected static function booted(): void
+    {
+        static::creating(function ($user) {
+            if (empty($user->name)) {
+                $user->name = $user->email;
+            }
+        });
+    }
+
     public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);
@@ -41,12 +50,12 @@ class User extends Authenticatable
 
     public function projects(): BelongsToMany
     {
-        return $this->belongsToMany(Project::class, 'project_user', 'user_id', 'project_id')->withTimestamps();
+        return $this->belongsToMany(Project::class)->withTimestamps();
     }
 
     public function networks(): BelongsToMany
     {
-        return $this->belongsToMany(Network::class, 'network_user', 'user_id', 'network_id')
+        return $this->belongsToMany(Network::class)
             ->withPivot('url')
             ->withTimestamps();
     }

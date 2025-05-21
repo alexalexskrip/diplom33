@@ -19,6 +19,6 @@ class NetworkSeeder extends Seeder
         DB::table('networks')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-        Network::factory()->count(15)->create();
+        Network::factory()->count(5)->create();
     }
 }

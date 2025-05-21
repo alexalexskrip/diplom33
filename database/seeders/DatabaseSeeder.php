@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
             Artisan::call('seed:project-media'),
             UserSeeder::class,
             AdminSeeder::class,
+            NetworkUserSeeder::class
         ]);
     }
 }

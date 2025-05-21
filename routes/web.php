@@ -13,6 +13,7 @@ use App\Http\Controllers\Cabinet\ProjectSourceDetachController;
 use App\Http\Controllers\Cabinet\SourceController;
 use App\Http\Controllers\Cabinet\StatusController;
 use App\Http\Controllers\Cabinet\UniversityController;
+use App\Http\Controllers\Cabinet\UserController;
 use App\Http\Controllers\Frontend\ProjectController as FrontendProjectController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('sourcelists', SourceController::class);
         Route::resource('statuslists', StatusController::class);
         Route::resource('projects', ProjectController::class);
+        Route::resource('students', UserController::class)->names('students');
 
         Route::delete('/projects/{project}/sources/{source}', [ProjectSourceDetachController::class, 'detach'])
             ->name('project.sources.detach');
