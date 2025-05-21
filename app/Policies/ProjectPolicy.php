@@ -29,4 +29,9 @@ class ProjectPolicy
     {
         return $user->hasRole('admin') || $project->users->contains($user);
     }
+
+    public function manageUsers(User $user, Project $project): bool
+    {
+        return $user->hasRole('admin');
+    }
 }

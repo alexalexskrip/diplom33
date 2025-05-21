@@ -53,6 +53,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('sourcelists', SourceController::class);
         Route::resource('statuslists', StatusController::class);
         Route::resource('projects', ProjectController::class);
+
+        Route::post('projects/{project}/users', [ProjectController::class, 'addUser'])
+            ->name('projects.users.add')
+            ->whereNumber('project');
+
+        Route::delete('projects/{project}/users/{user}', [ProjectController::class, 'removeUser'])
+            ->name('projects.users.remove')
+            ->whereNumber('project')
+            ->whereNumber('user');
+
         Route::resource('students', UserController::class)->names('students');
 
         Route::delete('/projects/{project}/sources/{source}', [ProjectSourceDetachController::class, 'detach'])

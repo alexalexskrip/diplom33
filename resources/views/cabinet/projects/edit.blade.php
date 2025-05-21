@@ -112,6 +112,8 @@
                         <x-primary-button>Сохранить</x-primary-button>
                     </form>
 
+                    @include('cabinet.projects.partials.project-users-form', ['project' => $project ?? null, 'allUsers' => $allUsers])
+
                     {{-- Изображения --}}
                     @if ($project->getMedia('images')->count())
                         <div class="mt-10">

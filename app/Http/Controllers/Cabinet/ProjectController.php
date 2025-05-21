@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\Source;
 use App\Models\Status;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -68,6 +69,44 @@ class ProjectController extends Controller
         return view('cabinet.projects.create', compact('statuses', 'sources'));
     }
 
+    /**
+     * @param  Request  $request
+     * @param $project
+     * @return void
+     */
+    public function addMedia(Request $request, $project): void
+    {
+        if ($request->hasFile('media')) {
+            // Получаем текущую максимальную позицию
+            $position = $project->getMedia('images')->max('custom_properties.position') ?? 0;
+
+            foreach ($request->file('media') as $file) {
+                $mime = $file->getMimeType();
+
+                if (str_starts_with($mime, 'image/')) {
+                    $collection = 'images';
+
+                    $project->addMedia($file)
+                        ->withCustomProperties(['position' => ++$position])
+                        ->toMediaCollection($collection);
+
+                } elseif (in_array($mime, ['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain', 'application/pdf'])) {
+                    $collection = 'documents';
+
+                    $project->addMedia($file)->toMediaCollection($collection);
+
+                } elseif (str_starts_with($mime, 'video/')) {
+                    $collection = 'videos';
+
+                    $project->addMedia($file)->toMediaCollection($collection);
+
+                } else {
+                    $project->addMedia($file)->toMediaCollection('default');
+                }
+            }
+        }
+    }
+
     public function show(Project $project)
     {
         $this->authorize('view', $project);
@@ -83,7 +122,9 @@ class ProjectController extends Controller
 
         $statuses = Status::all();
         $sources = Source::all();
-        return view('cabinet.projects.edit', compact('project', 'statuses', 'sources'));
+        $allUsers = User::all();
+
+        return view('cabinet.projects.edit', compact('project', 'statuses', 'sources', 'allUsers'));
     }
 
     public function update(Request $request, Project $project)
@@ -124,42 +165,25 @@ class ProjectController extends Controller
         return redirect()->route('cabinet.projects.index')->with('success', 'Проект удалён.');
     }
 
-    /**
-     * @param  Request  $request
-     * @param $project
-     * @return void
-     */
-    public function addMedia(Request $request, $project): void
+    public function addUser(Request $request, Project $project)
     {
-        if ($request->hasFile('media')) {
-            // Получаем текущую максимальную позицию
-            $position = $project->getMedia('images')->max('custom_properties.position') ?? 0;
+        $this->authorize('manageUsers', $project);
 
-            foreach ($request->file('media') as $file) {
-                $mime = $file->getMimeType();
+        $request->validate([
+            'user_id' => ['required', 'exists:users,id'],
+        ]);
 
-                if (str_starts_with($mime, 'image/')) {
-                    $collection = 'images';
+        $project->users()->syncWithoutDetaching([$request->user_id]);
 
-                    $project->addMedia($file)
-                        ->withCustomProperties(['position' => ++$position])
-                        ->toMediaCollection($collection);
-
-                } elseif (in_array($mime, ['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain', 'application/pdf'])) {
-                    $collection = 'documents';
-
-                    $project->addMedia($file)->toMediaCollection($collection);
-
-                } elseif (str_starts_with($mime, 'video/')) {
-                    $collection = 'videos';
-
-                    $project->addMedia($file)->toMediaCollection($collection);
-
-                } else {
-                    $project->addMedia($file)->toMediaCollection('default');
-                }
-            }
-        }
+        return redirect()->back()->with('success', 'Пользователь добавлен в проект.');
     }
 
+    public function removeUser(Project $project, User $user)
+    {
+        $this->authorize('manageUsers', $project);
+
+        $project->users()->detach($user->id);
+
+        return redirect()->back()->with('success', 'Пользователь удалён из проекта.');
+    }
 }
