@@ -29,12 +29,6 @@
     });
 </script>
 
-<script>
-    console.log("votes", window.__sliderData.votes);
-    console.log("review", window.__sliderData.review);
-    console.log("accepted", window.__sliderData.accepted);
-</script>
-
 <main>
     <div class="container" x-data="sliderData('votes')" x-init="true">
         <p class="my-text-muted">Всего инициатив: {{ $formattedVotesProjects->count() }}</p>
