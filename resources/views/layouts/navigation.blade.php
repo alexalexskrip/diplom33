@@ -66,9 +66,11 @@
                         Новости проектов
                     </x-nav-link>
 
+                    @role('admin')
                     <x-nav-link :href="route('cabinet.students.index')" :active="request()->routeIs('cabinet.students.index')">
                         Студенты
                     </x-nav-link>
+                    @endrole
                 </div>
             </div>
 

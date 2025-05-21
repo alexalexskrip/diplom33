@@ -109,7 +109,10 @@
                             <div class="text-red-500 text-sm mt-2">{{ $message }}</div>@enderror
                         </div>
 
-                        <x-primary-button>Сохранить</x-primary-button>
+                        <div class="mt-10 flex items-center">
+                            <x-primary-button>Сохранить</x-primary-button>
+                            <a href="{{ route('cabinet.projects.index') }}" class="ml-4 text-blue-500 hover:underline">← Назад к списку</a>
+                        </div>
                     </form>
 
                     @include('cabinet.projects.partials.project-users-form', ['project' => $project ?? null, 'allUsers' => $allUsers])
