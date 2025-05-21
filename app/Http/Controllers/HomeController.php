@@ -10,20 +10,48 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $projects = Project::with(['users.group', 'media'])
+        $formattedVotesProjects = $this->getFormattedProjectsByStatus(1);
+        $formattedReviewProjects = $this->getFormattedProjectsByStatus(2);
+        $formattedAcceptedProjects = $this->getFormattedProjectsByStatus(3);
+
+        $formattedNews = ProjectNews::with('project')
             ->latest()
             ->take(10)
-            ->get();
+            ->get()
+            ->map(function ($news) {
+                return [
+                    'description' => Str::limit($news->description, 60),
+                    'date' => $news->created_at->format('d.m.Y'),
+                    'tags' => ['#Учёба', '#Каникулы'], // здесь можно динамику позже
+                    'bgClass' => 'bg-salad', // или рандомный/по теме
+                    'link' => route('frontend.projects.show', $news), // добавь нужный маршрут
+                ];
+            });
 
-        $formattedProjects = $projects
+        return view('frontend.home', [
+            'formattedVotesProjects' => $formattedVotesProjects,
+            'formattedReviewProjects' => $formattedReviewProjects,
+            'formattedAcceptedProjects' => $formattedAcceptedProjects,
+            'formattedNews' => $formattedNews,
+        ]);
+    }
+
+    private function getFormattedProjectsByStatus(int $statusId)
+    {
+        return Project::with(['users.group', 'media'])
+            ->where('status_id', $statusId)
+            ->latest()
+            ->take(10)
+            ->get()
             ->filter(function ($p) {
                 $user = $p->users->first();
                 return $user && $user->firstname && $user->lastname && $user->group;
             })
             ->map(function ($p) {
+                $user = $p->users->first();
                 return [
-                    'author' => $p->users->first()->fullname,
-                    'group' => Str::limit($p->users->first()->group->name, 10),
+                    'author' => $user->fullname,
+                    'group' => Str::limit($user->group->name, 10),
                     'title' => $p->name,
                     'description' => Str::limit($p->description, 120),
                     'image' => $p->getFirstImageUrl(),
@@ -33,9 +61,5 @@ class HomeController extends Controller
                     'link' => route('frontend.projects.show', $p),
                 ];
             });
-
-        $project_news = ProjectNews::with(['project'])->latest()->take(10)->get();
-
-        return view('frontend.home', compact('formattedProjects', 'project_news'));
     }
 }
