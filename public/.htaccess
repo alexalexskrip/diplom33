@@ -16,8 +16,7 @@ Options -Indexes
     RewriteEngine On
 
     # Отключение прямого доступа к системным каталогам (разрешаем только /storage)
-    RewriteCond %{REQUEST_URI} !^/storage/.*$
-    RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|tests)/ - [F,L,NC]
+    RewriteRule ^(app|bootstrap|config|database|resources|routes|tests)/ - [F,L,NC]
 
     # Отключение доступа к скрытым файлам (.env, .git и др.)
     RewriteRule ^.*\.env$ - [F,L,NC]
