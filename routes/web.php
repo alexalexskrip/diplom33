@@ -15,6 +15,7 @@ use App\Http\Controllers\Cabinet\StatusController;
 use App\Http\Controllers\Cabinet\UniversityController;
 use App\Http\Controllers\Cabinet\UserController;
 use App\Http\Controllers\Frontend\FeedbackController;
+use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\ProjectController as FrontendProjectController;
 use App\Http\Controllers\Frontend\ProjectNewsController as FrontendProjectNewsController;
 use App\Http\Controllers\HomeController;
@@ -46,8 +47,18 @@ Route::name('frontend.')->group(function () {
         Route::get('/projectnews/{news}', [FrontendProjectNewsController::class, 'show'])->name('show');
     });
 
-    Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback.form');
-    Route::post('/feedback', [FeedbackController::class, 'send'])->name('feedback.send');
+    Route::name('feedback.')->group(function () {
+        Route::get('/feedback', [FeedbackController::class, 'index'])->name('form');
+        Route::post('/feedback', [FeedbackController::class, 'send'])->name('send');
+    });
+
+    Route::name('page.')->group(function () {
+        Route::get('/memo', [PageController::class, 'memo'])->name('memo');
+        Route::get('/about', [PageController::class, 'about'])->name('about');
+        Route::get('/news', [PageController::class, 'news'])->name('news');
+        Route::get('/how-it-works', [PageController::class, 'howItWorks'])->name('how');
+        Route::get('/faq', [PageController::class, 'faq'])->name('faq');
+    });
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {

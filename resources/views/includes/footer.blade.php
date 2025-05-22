@@ -15,9 +15,9 @@
                 <div class="col-sm-12 col-lg-6">
                     <div class="menu">
                         <ul>
-                            <li><a href="#">Памятка</a></li>
-                            <li><a href="#">О проекте</a></li>
-                            <li><a href="#">Новости</a></li>
+                            <li><a href="{{ route('frontend.page.memo') }}">Памятка</a></li>
+                            <li><a href="{{ route('frontend.page.about') }}">О проекте</a></li>
+                            <li><a href="{{ route('frontend.page.news') }}">Новости</a></li>
                         </ul>
                     </div>
                 </div>
