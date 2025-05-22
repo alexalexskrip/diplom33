@@ -52,8 +52,11 @@
                                 <div class="tag" x-text="project.author"></div>
                                 <div class="tag" x-text="project.group"></div>
                             </div>
-                            <h2><a :href="project.link" x-text="project.title"></a></h2>
-                            <p class="text-ellipsis"
+                            <h2
+                                class="text-ellipsis overflow-hidden"
+                                style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"
+                            ><a :href="project.link" x-text="project.title"></a></h2>
+                            <p class="text-ellipsis overflow-hidden mb-0"
                                style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;"
                                x-text="project.description"></p>
                         </div>
@@ -112,8 +115,17 @@
                                 <div class="tag" x-text="project.author"></div>
                                 <div class="tag" x-text="project.group"></div>
                             </div>
-                            <h2><a :href="project.link" x-text="project.title"></a></h2>
-                            <p class="text-ellipsis mb-5" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;" x-text="project.description"></p>
+                            <h2>
+                                <a
+                                    class="text-ellipsis overflow-hidden"
+                                    style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"
+                                    :href="project.link"
+                                    x-text="project.title"></a>
+                            </h2>
+                            <p
+                                class="text-ellipsis mb-5"
+                                style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;"
+                                x-text="project.description"></p>
                         </div>
                         <div class="mt-auto position-relative">
                             <a class="post_btn position-absolute" style="bottom: 10px; left: 1rem;" :href="project.link">
@@ -145,8 +157,13 @@
                                 <div class="tag" x-text="project.author"></div>
                                 <div class="tag" x-text="project.group"></div>
                             </div>
-                            <h2><a :href="project.link" x-text="project.title"></a></h2>
-                            <p class="text-ellipsis" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;" x-text="project.description"></p>
+                            <h2
+                                class="text-ellipsis overflow-hidden"
+                                style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"
+                            ><a :href="project.link" x-text="project.title"></a></h2>
+                            <p class="text-ellipsis overflow-hidden mb-0"
+                               style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;"
+                               x-text="project.description"></p>
                         </div>
                         <div class="mt-auto position-relative">
                             <img :src="project.image" alt="" loading="lazy" class="w-100 object-cover"
@@ -180,7 +197,11 @@
                                 <div class="tag fw-bold" x-text="tag"></div>
                             </template>
                         </div>
-                        <h4 class="fw-bold" x-text="news.name"></h4>
+                        <h4
+                            class="fw-bold text-ellipsis overflow-hidden"
+                            style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"
+                            x-text="news.name"
+                        ></h4>
                         <div class="d-flex justify-content-between mt-auto">
                             <div class="date" x-text="news.date"></div>
                             <div><a :href="news.link" style="color: #000; text-decoration: none;"><i class="fa-solid fa-arrow-right"></i></a></div>

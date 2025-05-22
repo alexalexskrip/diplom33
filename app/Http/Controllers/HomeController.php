@@ -56,8 +56,9 @@ class HomeController extends Controller
                 return [
                     'author' => $user->firstname . ' ' . $user->lastname,
                     'group' => Str::limit($user->group->name, 10),
+//                    'title' => Str::limit($p->name, 20),
                     'title' => $p->name,
-                    'description' => Str::limit($p->description, 120),
+                    'description' => $p->description,
                     'image' => $p->getFirstImageUrl(),
                     'views' => 50,
                     'votes' => 29,
