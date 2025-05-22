@@ -2,6 +2,11 @@
 
 <main>
     <div class="container my-5">
+        <x-breadcrumbs :items="[
+            ['title' => 'Главная', 'url' => route('frontend.home')],
+            ['title' => 'О проекте']
+        ]"/>
+
         <h1>О проекте</h1>
 
         <div class="mt-4">
