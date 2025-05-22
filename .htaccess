@@ -15,6 +15,16 @@ Options -Indexes
 
     RewriteEngine On
 
+    # Добавление слэша, если это директория
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteCond %{REQUEST_URI} !/$
+    RewriteRule ^ %{REQUEST_URI}/ [R=301,L]
+
+    # Удаление слэша, если это не директория
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
     # Отключение прямого доступа к системным каталогам (разрешаем только /storage)
     RewriteRule ^(app|bootstrap|config|database|resources|routes|tests)/ - [F,L,NC]
 
@@ -25,11 +35,6 @@ Options -Indexes
     # Обработка заголовка авторизации
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-
-    # Перенаправление без слэша на конце
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
 
     # Обработка всех остальных запросов через index.php
     RewriteCond %{REQUEST_FILENAME} !-d
