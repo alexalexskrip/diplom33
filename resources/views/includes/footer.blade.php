@@ -18,7 +18,6 @@
                             <li><a href="#">Памятка</a></li>
                             <li><a href="#">О проекте</a></li>
                             <li><a href="#">Новости</a></li>
-                            <li><a href="#">Памятка</a></li>
                         </ul>
                     </div>
                 </div>
