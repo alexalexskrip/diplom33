@@ -21,7 +21,7 @@ class HomeController extends Controller
             ->get()
             ->map(function ($news) {
                 return [
-                    'description' => Str::limit($news->description, 60),
+                    'name' => Str::limit($news->name, 60),
                     'date' => $news->created_at->format('d.m.Y'),
                     'tags' => ['#Учёба', '#Каникулы'], // здесь можно динамику позже
                     'bgClass' => 'bg-salad', // или рандомный/по теме

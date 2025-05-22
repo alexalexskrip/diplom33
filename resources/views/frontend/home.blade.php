@@ -173,15 +173,15 @@
         <h2 class="text-center fw-bold mb-4">Новости проекта</h2>
         <div class="row">
             <template x-for="(news, index) in visibleItems()" :key="index">
-                <div class="col-sm-12 col-lg-3 mb-3">
-                    <div class="news" :class="news.bgClass">
+                <div class="col-sm-12 col-lg-3 mb-3 d-flex">
+                    <div class="news d-flex flex-column justify-between w-100" :class="news.bgClass">
                         <div class="d-flex mb-3">
                             <template x-for="tag in news.tags">
                                 <div class="tag fw-bold" x-text="tag"></div>
                             </template>
                         </div>
-                        <h4 class="fw-bold" x-text="news.description"></h4>
-                        <div class="d-flex justify-content-between">
+                        <h4 class="fw-bold" x-text="news.name"></h4>
+                        <div class="d-flex justify-content-between mt-auto">
                             <div class="date" x-text="news.date"></div>
                             <div><a :href="news.link" style="color: #000; text-decoration: none;"><i class="fa-solid fa-arrow-right"></i></a></div>
                         </div>
