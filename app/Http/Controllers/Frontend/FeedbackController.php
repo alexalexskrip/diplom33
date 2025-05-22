@@ -10,7 +10,7 @@ class FeedbackController extends Controller
 {
     public function index()
     {
-        return view('frontend.feedback');
+        return view('frontend.pages.feedback');
     }
 
     public function send(Request $request)
