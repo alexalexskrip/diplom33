@@ -9,25 +9,31 @@
     };
 
     document.addEventListener('alpine:init', () => {
-        Alpine.data('sliderData', (type = 'votes') => ({
-            items: window.__sliderData[type] ?? [],
-            currentStart: 0,
-            visibleCount: 3,
+        Alpine.data('sliderData', (type = 'votes') => {
+            const items = window.__sliderData[type] ?? [];
+            const visibleCount = type === 'news' ? 4 : 3;
 
-            visibleItems() {
-                return this.items.slice(this.currentStart, this.currentStart + this.visibleCount);
-            },
+            return {
+                items,
+                currentStart: 0,
+                visibleCount,
 
-            next() {
-                if (this.currentStart + this.visibleCount < this.items.length) this.currentStart++;
-            },
+                visibleItems() {
+                    return this.items.slice(this.currentStart, this.currentStart + this.visibleCount);
+                },
 
-            prev() {
-                if (this.currentStart > 0) this.currentStart--;
-            }
-        }));
+                next() {
+                    if (this.currentStart + this.visibleCount < this.items.length) this.currentStart++;
+                },
+
+                prev() {
+                    if (this.currentStart > 0) this.currentStart--;
+                }
+            };
+        });
     });
 </script>
+
 
 <main>
     <div class="container" x-data="sliderData('votes')" x-init="true">
@@ -187,7 +193,14 @@
 
 <section class="my-5">
     <div class="container" x-data="sliderData('news')" x-init="true">
-        <h2 class="text-center fw-bold mb-4">Новости проекта</h2>
+
+        <div class="d-flex justify-content-between mb-3">
+            <h2 class="text-center fw-bold mb-4">Новости проекта</h2>
+            <div class="d-flex justify-content-between align-items-center">
+                <a class="slide_btn" href="#" @click.prevent="prev"><i class="fa-solid fa-caret-left"></i></a>
+                <a class="slide_btn" href="#" @click.prevent="next"><i class="fa-solid fa-caret-right"></i></a>
+            </div>
+        </div>
         <div class="row">
             <template x-for="(news, index) in visibleItems()" :key="index">
                 <div class="col-sm-12 col-lg-3 mb-3 d-flex">
