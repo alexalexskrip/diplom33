@@ -7,7 +7,36 @@
             ['title' => 'Проекты / ' . $project->name]
         ]"/>
 
-        <h1>{{ $project->name }}</h1>
+        <div class="d-flex align-items-center gap-4">
+            <h1 class="mb-0 d-flex align-items-center gap-4">
+                {{ $project->name }}
+                <span class="text-muted" style="font-size: 1rem">
+                    ({{ $project->votes_count }} {{ plural_form($project->votes_count, 'голос', 'голоса', 'голосов') }})
+                </span>
+            </h1>
+
+            @auth
+                <div class="d-inline-block">
+                    @php
+                        $voted = DB::table('project_votes')
+                            ->where('project_id', $project->id)
+                            ->where('user_id', auth()->id())
+                            ->exists();
+                    @endphp
+
+                    @if ($voted)
+                        <i class="fa-solid fa-star text-warning" title="Вы уже голосовали" style="font-size: 1.4rem;"></i>
+                    @else
+                        <form action="{{ route('frontend.projects.vote', $project) }}" method="POST" style="display:inline">
+                            @csrf
+                            <button type="submit" title="Голосовать" style="border:none; background:none; padding:0">
+                                <i class="fa-regular fa-star text-primary" style="font-size: 1.4rem;"></i>
+                            </button>
+                        </form>
+                    @endif
+                </div>
+            @endauth
+        </div>
 
         <div class="mt-4">
             <h2 class="mb-2">Студенты:</h2>

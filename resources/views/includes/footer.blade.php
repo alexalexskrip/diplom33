@@ -44,6 +44,15 @@
 
 <script src="{{ asset('js/jquery.js') }}"></script>
 <script src="{{ asset('js/bootstrap.js') }}"></script>
+
+<script>
+    window.pluralizeRu = function(n, one, few, many) {
+        n = Math.abs(n);
+        if (n % 10 === 1 && n % 100 !== 11) return one;
+        if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) return few;
+        return many;
+    };
+</script>
 </body>
 </html>
 

@@ -61,7 +61,7 @@ class HomeController extends Controller
                     'description' => $p->description,
                     'image' => $p->getFirstImageUrl(),
                     'views' => 50,
-                    'votes' => 29,
+                    'votes' => $p->votes_count,
                     'bgClass' => 'bg-salad',
                     'link' => route('frontend.projects.show', $p),
                 ];

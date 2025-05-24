@@ -7,43 +7,13 @@ use App\Models\Project;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View as ViewAlias;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class ProjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -56,37 +26,31 @@ class ProjectController extends Controller
         return view('frontend.projects.show', compact('project'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  Project  $project
-     * @return Application|Factory|ViewAlias|View
-     */
-    public function edit(Project $project)
+    public function vote(Project $project): RedirectResponse
     {
+        $userId = Auth::id();
 
-    }
+        // Проверка: голосовал ли уже
+        $alreadyVoted = DB::table('project_votes')
+            ->where('project_id', $project->id)
+            ->where('user_id', $userId)
+            ->exists();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  Request  $request
-     * @param  Project  $project
-     * @return Response
-     */
-    public function update(Request $request, Project $project)
-    {
-        //
-    }
+        if ($alreadyVoted) {
+            return back()->with('error', 'Вы уже голосовали за этот проект.');
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  Project  $project
-     * @return Response
-     */
-    public function destroy(Project $project)
-    {
-        //
+        // Добавляем запись о голосовании
+        DB::table('project_votes')->insert([
+            'project_id' => $project->id,
+            'user_id' => $userId,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Увеличиваем счётчик голосов в проекте
+        $project->increment('votes_count');
+
+        return back()->with('success', 'Ваш голос учтён.');
     }
 }

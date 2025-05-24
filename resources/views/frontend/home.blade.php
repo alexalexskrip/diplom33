@@ -82,7 +82,7 @@
                             <!-- Метаданные -->
                             <div class="meta_data position-absolute bottom-1 start-3 end-3 d-flex justify-content-between text-white px-3 small">
                                 <a href="#" x-text="project.views + ' просмотров'"></a>
-                                <a href="#" x-text="project.votes + ' голосов'"></a>
+                                <a href="#" x-text="project.votes + ' ' + pluralizeRu(project.votes, 'голос', 'голоса', 'голосов')"></a>
                             </div>
                         </div>
 
@@ -181,7 +181,7 @@
                             </div>
                             <div class="meta_data position-absolute bottom-1 start-3 end-3 d-flex justify-content-between text-white px-3 small">
                                 <a href="#" x-text="project.views + ' просмотров'"></a>
-                                <a href="#" x-text="project.votes + ' голосов'"></a>
+                                <a href="#" x-text="project.votes + ' ' + pluralizeRu(project.votes, 'голос', 'голоса', 'голосов')"></a>
                             </div>
                         </div>
                     </div>

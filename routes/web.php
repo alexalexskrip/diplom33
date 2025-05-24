@@ -41,6 +41,7 @@ Route::name('frontend.')->group(function () {
 
     Route::name('projects.')->group(function () {
         Route::get('/projects/{project}', [FrontendProjectController::class, 'show'])->name('show');
+        Route::post('/projects/{project}/vote', [FrontendProjectController::class, 'vote'])->name('vote');
     });
 
     Route::name('project-news.')->group(function () {
